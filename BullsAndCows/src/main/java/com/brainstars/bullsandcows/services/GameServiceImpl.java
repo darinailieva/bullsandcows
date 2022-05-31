@@ -77,6 +77,11 @@ public class GameServiceImpl implements GameService {
         return gameRepository.findById(gameId).orElseThrow(EntityNotFoundException::new);
     }
 
+    @Override
+    public List<Game> getAllUserGames(String username) {
+        return gameRepository.getAllUserGames(username);
+    }
+
 
     private int getRandomNumber() {
         int num1 = getRandomDigit();

@@ -14,4 +14,7 @@ public interface GameService {
     List<Game> getAllGames();
 
     Game getById(int gameId);
+
+    List<Game> getAllUserGames(String username);
+
 }
