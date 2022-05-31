@@ -56,7 +56,7 @@
                 <li><a class="nav-link scrollto" href="#services">Services</a></li>
                 <li><a class="nav-link scrollto" href="#portfolio">Portfolio</a></li>
                 <li><a class="nav-link scrollto" href="#team">Team</a></li>
-                <li sec:authorize="isAuthenticated()"><a class="nav-link scrollto" th:href="@{/mygames}">My games</a>
+                <li sec:authorize="isAuthenticated()"><a class="nav-link scrollto" th:href="@{/game/s}">My games</a>
                 </li>
                 <li th:action="@{/logout}" sec:authorize="isAuthenticated()" method="get"><a class="nav-link scrollto"
                                                                                              th:href="logout">Logout</a>

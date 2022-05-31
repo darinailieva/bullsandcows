@@ -71,72 +71,65 @@
 
 
             <div class="row">
-                <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
+                <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="300">
                     <div class="icon-box">
                         <div class="icon"><i class="bx bxl-dribbble"></i></div>
-                        <a href="#"><h4 th:text="${gameId}">GameId</h4></a>
-                        <p class="description" th:text="${timesPlayed}"></p>
-                        <p class="description" th:text="${createdDate}"></p>
-                        <p class="description" th:text="${lastModifiedDate}"></p>
+                        <a><h4 th:text="${gameId}">GameId</h4></a>
                         <div class="single-post d-flex flex-row">
                             <div class="thumb">
-                                <ul class="tags">
-                                    <li th:each="attempt: ${attempts}">
-                                        <a th:text="${attempt.bulls}"></a>
-                                        <a th:text="${attempt.cows}"></a>
-                                        <a th:text="${attempt.currentNumber}"></a>
-                                    </li>
-                                </ul>
+                                <h5 class="description">Game history</h5>
+                                <table>
+                                    <thead>
+                                    <tr>
+                                        <th><h6 class="description">Bulls</h6></th>
+                                        <th><h6 class="description">Cows</h6></th>
+                                        <th><h6 class="description">Guessed number</h6></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="attempt: ${attempts}">
+                                        <td th:text="${attempt.bulls}"></td>
+                                        <td th:text="${attempt.cows}"></td>
+                                        <td th:text="${attempt.currentNumber}"></td>
+                                    <tr/>
+                                    </tbody>
+                                </table>
                             </div>
-
-
                         </div>
+
                     </div>
+                </div>
 
-                    <div class="row">
+                <div class="row">
 
-                        <div class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch" data-aos="fade-up"
-                             data-aos-delay="200">
-                            <form autocomplete="off" th:if="!${game.isFinished()}" action="#" th:action="@{/game/{gameId} (gameId=${game.gameId})}"
-                                  method="post" role="form" class="php-email-form" sec:authorize="isAuthenticated()">
-                                <div class="row">
-                                    <div class="form-group col-md-6">
-                                        <h3>Number to guess</h3>
-                                        <label>
-                                            <input type="text" name="currentNumber"/>
-                                        </label>
-                                    </div>
-                                    <div class="text-center">
-                                        <input type="submit" value="Submit"/>
-                                    </div>
+                    <div class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch" data-aos="fade-up"
+                         data-aos-delay="200">
+                        <form autocomplete="off" th:if="!${game.isFinished()}" action="#"
+                              th:action="@{/game/{gameId} (gameId=${game.gameId})}"
+                              method="post" role="form" class="php-email-form" sec:authorize="isAuthenticated()">
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <h3>Number to guess</h3>
+                                    <label>
+                                        <input type="text" name="currentNumber"/>
+                                    </label>
                                 </div>
-                            </form>
-                        </div>
-
+                                <div class="text-center">
+                                    <input type="submit" value="Submit"/>
+                                </div>
+                            </div>
+                        </form>
                     </div>
 
                 </div>
+
+            </div>
     </section><!-- End Contact Us Section -->
 
 </main><!-- End #main -->
 
 <!-- ======= Footer ======= -->
 <footer id="footer">
-
-    <div class="footer-newsletter">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-6">
-                    <h4>Join Our Newsletter</h4>
-                    <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
-                    <form action="" method="post">
-                        <input type="email" name="email"><input type="submit" value="Subscribe">
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
 
 </footer><!-- End Footer -->
 
