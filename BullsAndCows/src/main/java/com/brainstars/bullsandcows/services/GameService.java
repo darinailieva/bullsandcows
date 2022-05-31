@@ -1,9 +1,17 @@
 package com.brainstars.bullsandcows.services;
 
+import com.brainstars.bullsandcows.models.Attempt;
 import com.brainstars.bullsandcows.models.Game;
 
 import java.security.Principal;
+import java.util.List;
 
 public interface GameService {
-    void startGame(Principal principal);
+    Game startGame(Principal principal);
+
+    void guessNumber(int gameId, Attempt attempt);
+
+    List<Game> getAllGames();
+
+    Game getById(int gameId);
 }

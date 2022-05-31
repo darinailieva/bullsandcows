@@ -1,16 +1,21 @@
 package com.brainstars.bullsandcows.models;
 
+import com.brainstars.bullsandcows.repositories.AttemptRepository;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
@@ -29,21 +34,33 @@ public class Game {
     private int timesPlayed;
 
     @Column (name = "number_to_guess")
-    private int numberToGuess;
+    private String numberToGuess;
 
     @Column (name = "username")
     private String username;
 
-    @CreatedDate
+    @CreationTimestamp
+   // @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_date")
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date createdDate;
+    //@JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDateTime createdDate;
 
-    @LastModifiedDate
+    @UpdateTimestamp
+  //  @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "last_modified_date")
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date lastModifiedDate;
+   // @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDateTime lastModifiedDate;
 
     @Column (name = "finished")
     boolean isFinished;
+
+    @OneToMany(mappedBy = "game",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    List<Attempt> attempts;
+
+    public void addAttempt(Attempt attempt) {
+        attempts.add(attempt);
+        attempt.setGame(this);
+    }
 }
