@@ -50,7 +50,7 @@
         <nav id="navbar" class="navbar">
             <ul>
                 <li><a class="nav-link scrollto" th:href="@{/}">Home</a></li>
-                <li sec:authorize="isAuthenticated()"><a class="nav-link scrollto" th:href="@{/game/s}">My games</a>
+                <li sec:authorize="isAuthenticated()"><a class="nav-link scrollto" th:href="@{/game/my}">My games</a>
                 </li>
                 <li th:action="@{/logout}" sec:authorize="isAuthenticated()" method="get"><a class="nav-link scrollto"
                                                                                              th:href="logout">Logout</a>

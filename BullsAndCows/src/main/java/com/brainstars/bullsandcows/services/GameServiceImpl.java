@@ -69,9 +69,13 @@ public class GameServiceImpl implements GameService {
 
     @Override
     public List<Game> getAllGames() {
-        return gameRepository.findAll();
+        return gameRepository.getAllGamesOrderByTimesPlayed();
     }
 
+    @Override
+    public List<Object[]> findAllByMinTimesPlayedAndMinDateDifference() {
+        return gameRepository.findAllByMinTimesPlayedAndMinDateDifference();
+    }
     @Override
     public Game getById(int gameId) {
         return gameRepository.findById(gameId).orElseThrow(EntityNotFoundException::new);

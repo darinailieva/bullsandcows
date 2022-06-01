@@ -17,4 +17,6 @@ public interface GameService {
 
     List<Game> getAllUserGames(String username);
 
+    List<Object[]> findAllByMinTimesPlayedAndMinDateDifference();
+
 }

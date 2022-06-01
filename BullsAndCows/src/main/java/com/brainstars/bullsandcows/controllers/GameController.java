@@ -24,8 +24,13 @@ public class GameController {
     public GameController(GameService gameService) {
         this.gameService = gameService;
     }
+//    @GetMapping("/games")
+//    public String getAll(Model model) {
+//        model.addAttribute("games", gameService.getAllGames());
+//        return "/";
+//    }
 
-    @GetMapping("/s")
+    @GetMapping("/my")
     public String getStarted (Principal principal, Model model){
         model.addAttribute("games", gameService.getAllUserGames(principal.getName()));
         return "my-games";
