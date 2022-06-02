@@ -1,5 +1,6 @@
 package com.brainstars.bullsandcows.controllers;
 
+import com.brainstars.bullsandcows.exceptions.InvalidParameterException;
 import com.brainstars.bullsandcows.models.Attempt;
 import com.brainstars.bullsandcows.models.Game;
 import com.brainstars.bullsandcows.models.dtos.AttemptRequest;
@@ -23,8 +24,9 @@ public class GameController {
     public GameController(GameService gameService) {
         this.gameService = gameService;
     }
+
     @GetMapping("/games")
-    public String getStarted (Principal principal, Model model){
+    public String getStarted(Principal principal, Model model) {
         model.addAttribute("games", gameService.getAllUserGames(principal.getName()));
         return "my-games";
     }
@@ -55,14 +57,21 @@ public class GameController {
         gameService.guessNumber(gameId, attempt);
         return "redirect:/game/" + gameId;
     }
+
     private void validateAttemptRequest(AttemptRequest request) {
         String currentNumber = request.getCurrentNumber();
         int length = currentNumber.length();
+        if (length > 4) {
+            throw new InvalidParameterException("Guessed number");
+        }
+        if(!currentNumber.matches("^[0-9]*$")){
+            throw new InvalidParameterException("Guessed number");
+        }
+
         for (int i = 0; i < length; i++) {
             for (int j = 0; j < length; j++) {
                 if (i != j && currentNumber.charAt(i) == currentNumber.charAt(j)) {
-                    //TODO make better exception
-                    throw new HttpClientErrorException(HttpStatus.BAD_REQUEST);
+                    throw new InvalidParameterException("Current number");
                 }
             }
         }
