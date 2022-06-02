@@ -1,119 +1,32 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
 
 <head>
+    <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-    <title>Ninestars Bootstrap Template - Index</title>
-    <meta content="" name="description">
-    <meta content="" name="keywords">
-
-    <!-- Favicons -->
-    <link th:href="@{../static/img/favicon.png}" rel="icon">
-    <link th:href="@{../static/img/apple-touch-icon.png}" rel="apple-touch-icon">
-
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,600,600i,700,700i"
-          rel="stylesheet">
-
-    <!-- Vendor CSS Files -->
-    <link th:href="@{../static/vendor/aos/aos.css}" rel="stylesheet">
-    <link th:href="@{..static/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
-    <link th:href="@{..static/vendor/bootstrap-icons/bootstrap-icons.css}" rel="stylesheet">
-    <link th:href="@{..static/vendor/boxicons/css/boxicons.min.css}" rel="stylesheet">
-    <link th:href="@{..static/vendor/glightbox/css/glightbox.min.css}" rel="stylesheet">
-    <link th:href="@{..static/vendor/swiper/swiper-bundle.min.css}" rel="stylesheet">
-
-    <!-- Template Main CSS File -->
-    <link th:href="@{/css/style.css}" rel="stylesheet">
-
-    <!-- =======================================================
-    * Template Name: Ninestars - v4.7.0
-    * Template URL: https://bootstrapmade.com/ninestars-free-bootstrap-3-theme-for-creative/
-    * Author: BootstrapMade.com
-    * License: https://bootstrapmade.com/license/
-    ======================================================== -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Purple Admin</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
-
-<body th:with="httpStatus=${T(org.springframework.http.HttpStatus).valueOf(#response.status)}">
-
-<!-- ======= Header ======= -->
-<header id="header" class="fixed-top d-flex align-items-center">
-    <div class="container d-flex align-items-center justify-content-between">
-
-        <div class="logo">
-            <h1 class="text-light"><a href="index.html"><span>Ninestars</span></a></h1>
-            <!-- Uncomment below if you prefer to use an image logo -->
-            <!-- <a href="index.html"><img src="static/img/logo.png" alt="" class="img-fluid"></a>-->
-        </div>
-
-        <nav id="navbar" class="navbar">
-            <ul>
-                <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
-                <li><a class="nav-link scrollto" href="#about">About Us</a></li>
-                <li><a class="nav-link scrollto" href="#services">Services</a></li>
-                <li><a class="nav-link scrollto" href="#portfolio">Portfolio</a></li>
-                <li><a class="nav-link scrollto" href="#team">Team</a></li>
-                <li sec:authorize="!isAuthenticated()"><a class="ticker-btn" th:href="@{/register}">Register</a></li>
-                <li sec:authorize="!isAuthenticated()"><a class="ticker-btn" th:href="@{/login}">Login</a></li>
-            </ul>
-            <i class="bi bi-list mobile-nav-toggle"></i>
-        </nav><!-- .navbar -->
-    </div>
-</header><!-- End Header -->
-
-<!-- ======= Hero Section ======= -->
-<main id="main">
-    <!-- ======= Contact Us Section ======= -->
-    <section id="contact" class="contact">
-        <div class="container" data-aos="fade-up">
-
-            <div class="section-title">
-                <h1 th:text="|${httpStatus} - ${httpStatus.getReasonPhrase()}|">404</h1>
-                <a href="index" th:href="@{/index}"></a>
-            </div>
-
-        </div>
-    </section><!-- End Contact Us Section -->
-
-</main><!-- End #main -->
-
-<!-- ======= Footer ======= -->
-<footer id="footer">
-
-    <div class="footer-newsletter">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-6">
-                    <h4>Join Our Newsletter</h4>
-                    <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
-                    <form action="" method="post">
-                        <input type="email" name="email"><input type="submit" value="Subscribe">
-                    </form>
+<body>
+<div class="container-scroller"
+     th:with="httpStatus=${T(org.springframework.http.HttpStatus).valueOf(#response.status)}">
+    <div class="container-fluid page-body-wrapper">
+        <div class="row">
+            <div class="content-wrapper full-page-wrapper d-flex align-items-center text-center error-page">
+                <div class="col-lg-6 mx-auto">
+                    <h1 class="display-1 mb-0" th:text="${httpStatus.value()}">404</h1>
+                    <h2 class="mb-4" th:text="${httpStatus.getReasonPhrase()}">Page Not Found!</h2>
+                    <a class="btn btn-primary mt-5 btn-rounded btn-lg" th:href="@{/}">Back to Dashboard</a>
                 </div>
             </div>
+            <!-- content-wrapper ends -->
         </div>
+        <!-- row ends -->
     </div>
-
-
-</footer><!-- End Footer -->
-
-<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-        class="bi bi-arrow-up-short"></i></a>
-
-<!-- Vendor JS Files -->
-<script th:src="@{../static/vendor/aos/aos.js}"></script>
-<script th:src="@{../static/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
-<script th:src="@{../static/vendor/glightbox/js/glightbox.min.js}"></script>
-<script th:src="@{../static/vendor/isotope-layout/isotope.pkgd.min.js}"></script>
-<script th:src="@{../static/vendor/swiper/swiper-bundle.min.js}"></script>
-<script th:src="@{../static/vendor/php-email-form/validate.js}"></script>
-
-<!-- Template Main JS File -->
-<script th:src="@{../static/js/main.js}"></script>
-
+    <!-- page-body-wrapper ends -->
+</div>
 </body>
-
 </html>
+

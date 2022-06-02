@@ -1,133 +1,123 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
 
 <head>
+    <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-    <title>Ninestars Bootstrap Template - Index</title>
-    <meta content="" name="description">
-    <meta content="" name="keywords">
-
-    <!-- Favicons -->
-    <link th:href="@{../static/img/favicon.png}" rel="icon">
-    <link th:href="@{../static/img/apple-touch-icon.png}" rel="apple-touch-icon">
-
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,600,600i,700,700i"
-          rel="stylesheet">
-
-    <!-- Vendor CSS Files -->
-    <link th:href="@{../static/vendor/aos/aos.css}" rel="stylesheet">
-    <link th:href="@{..static/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
-    <link th:href="@{..static/vendor/bootstrap-icons/bootstrap-icons.css}" rel="stylesheet">
-    <link th:href="@{..static/vendor/boxicons/css/boxicons.min.css}" rel="stylesheet">
-    <link th:href="@{..static/vendor/glightbox/css/glightbox.min.css}" rel="stylesheet">
-    <link th:href="@{..static/vendor/swiper/swiper-bundle.min.css}" rel="stylesheet">
-
-    <!-- Template Main CSS File -->
-    <link th:href="@{/css/style.css}" rel="stylesheet">
-
-    <!-- =======================================================
-    * Template Name: Ninestars - v4.7.0
-    * Template URL: https://bootstrapmade.com/ninestars-free-bootstrap-3-theme-for-creative/
-    * Author: BootstrapMade.com
-    * License: https://bootstrapmade.com/license/
-    ======================================================== -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Purple Admin</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
-
 <body>
-
-<!-- ======= Header ======= -->
-<header id="header" class="fixed-top d-flex align-items-center">
-    <div class="container d-flex align-items-center justify-content-between">
-
-        <div class="logo">
-            <h1 class="text-light"><a href="index.html"><span>Bulls and Cows</span></a></h1>
-        </div>
-
-        <nav id="navbar" class="navbar">
-            <ul>
-                <li><a class="nav-link scrollto" th:href="@{/}">Home</a></li>
-                <li sec:authorize="isAuthenticated()"><a class="nav-link scrollto" th:href="@{/game/my}">My games</a>
+<!-- partial -->
+<div class="container-fluid page-body-wrapper">
+    <div class="row row-offcanvas row-offcanvas-right">
+        <!-- partial:partials/_sidebar.html -->
+        <nav class="sidebar sidebar-offcanvas" id="sidebar">
+            <ul class="nav">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}">
+                        <span class="menu-title">Dashboard</span>
+                        <i class="mdi mdi-home menu-icon"></i>
+                    </a>
                 </li>
-                <li th:action="@{/logout}" sec:authorize="isAuthenticated()" method="get"><a class="nav-link scrollto"
-                                                                                             th:href="logout">Logout</a>
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <a class="nav-link" th:href="@{/games}">
+                        <span class="menu-title">My games</span>
+                        <i class="mdi mdi-home menu-icon"></i>
+                    </a>
                 </li>
-
-                <li sec:authorize="!isAuthenticated()"><a class="nav-link scrollto" th:href="@{/register}">Register</a>
+                <li class="nav-item" th:action="@{/logout}" sec:authorize="isAuthenticated()" method="get">
+                    <a class="nav-link" th:href="logout">
+                        <span class="menu-title">Logout</span>
+                        <i class="mdi mdi-home menu-icon"></i>
+                    </a>
                 </li>
-                <li sec:authorize="!isAuthenticated()"><a class="nav-link scrollto" th:href="@{/login}">Login</a></li>
-                <li><a class="getstarted scrollto" th:action="@{/game}" sec:authorize="isAuthenticated()" method="get"
-                       th:href="@{/game}">Start a new game</a></li>
+                <li class="nav-item" sec:authorize="!isAuthenticated()">
+                    <a class="nav-link" th:href="@{/register}">
+                        <span class="menu-title">Register</span>
+                        <i class="mdi mdi-home menu-icon"></i>
+                    </a>
+                </li>
+                <li class="nav-item" sec:authorize="!isAuthenticated()">
+                    <a class="nav-link" th:href="@{/login}">
+                        <span class="menu-title">Login</span>
+                        <i class="mdi mdi-home menu-icon"></i>
+                    </a>
+                </li>
             </ul>
-            <i class="bi bi-list mobile-nav-toggle"></i>
-        </nav><!-- .navbar -->
 
-    </div>
-</header><!-- End Header -->
-<main id="main">
-
-    <!-- ======= Services Section ======= -->
-    <section id="services" class="services section-bg">
-        <div class="container" data-aos="fade-up">
-            <div class="section-title">
-                <p>My games</p>
+            <div class="wrapper upgrade-button">
+                <a th:action="@{/game}" sec:authorize="isAuthenticated()" method="get" th:href="@{/game}"
+                   class="btn btn-lg btn-block purchase-button">Start a new game</a>
             </div>
 
+        </nav>
+
+
+        <!-- partial -->
+        <div class="content-wrapper">
             <div class="row">
-                <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100"
-                     th:each="game:${games}" sec:authorize="isAuthenticated()">
-                    <div class="icon-box">
-                        <div class="icon"><i class="bx bxl-dribbble"></i></div>
-                        <a th:href="@{{gameId} (gameId=${game.gameId})}"><h4 th:text="${game.gameId}">GameId</h4>
-                        </a>
-                        <h6 class="description">Times Played</h6>
-                        <p class="description" th:text="${game.timesPlayed}"></p>
-                        <h6 class="description">Initial date</h6>
-                        <p class="description" th:text="${game.createdDate}"></p>
-                        <h6 class="description" th:if="${game.isFinished()}">Finish date</h6>
-                        <p class="description" th:if="${game.isFinished()}" th:text="${game.lastModifiedDate}"></p>
+                <div class="col-12 grid-margin">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">My games</h4>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>
+                                            Game id
+                                        </th>
+                                        <th>Action
+                                        </th>
+                                        <th>
+                                            Times Played
+                                        </th>
+                                        <th>
+                                            Start date
+                                        </th>
+                                        <th>Finish date
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody th:each="game:${games}" sec:authorize="isAuthenticated()">
+                                    <tr>
+                                        <td th:text="${game.gameId}">
+                                        <td>
+                                            <a th:if="${game.isFinished()}"
+                                               th:href="@{/game/{gameId} (gameId=${game.gameId})}"
+                                               class="badge badge-gradient-success">VIEW</a>
+                                            <a th:if="${!game.isFinished()}"
+                                               th:href="@{/game/{gameId} (gameId=${game.gameId})}"
+                                               class="badge badge-gradient-warning">CONTINUE</a>
+                                        </td>
+                                        </td>
+                                        <td th:text="${game.timesPlayed}">
+                                        </td>
+                                        <td th:text="${game.createdDate}">
+                                        </td>
+                                        <td th:if="${game.isFinished()}" th:text="${game.lastModifiedDate}">
+                                        </td>
+
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-
+            <!-- content-wrapper ends -->
+            <!-- partial:partials/_footer.html -->
+            <!-- partial -->
         </div>
-    </section><!-- End Services Section -->
-
-</main><!-- End #main -->
-
-<!-- ======= Footer ======= -->
-<footer id="footer">
-    <div class="container py-4">
-        <div class="copyright">
-            &copy; Copyright <strong><span>Ninestars</span></strong>. All Rights Reserved
-        </div>
-        <div class="credits">
-            <!-- All the links in the footer should remain intact. -->
-            <!-- You can delete the links only if you purchased the pro version. -->
-            <!-- Licensing information: https://bootstrapmade.com/license/ -->
-            <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/ninestars-free-bootstrap-3-theme-for-creative/ -->
-            Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-        </div>
+        <!-- row-offcanvas ends -->
     </div>
-</footer><!-- End Footer -->
-
-<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-        class="bi bi-arrow-up-short"></i></a>
-
-<!-- Vendor JS Files -->
-<script th:src="@{../static/vendor/aos/aos.js}"></script>
-<script th:src="@{../static/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
-<script th:src="@{../static/vendor/glightbox/js/glightbox.min.js}"></script>
-<script th:src="@{../static/vendor/isotope-layout/isotope.pkgd.min.js}"></script>
-<script th:src="@{../static/vendor/swiper/swiper-bundle.min.js}"></script>
-<script th:src="@{../static/vendor/php-email-form/validate.js}"></script>
-
-<!-- Template Main JS File -->
-<script th:src="@{../static/js/main.js}"></script>
-
+    <!-- page-body-wrapper ends -->
+</div>
+<!-- container-scroller -->
 </body>
 
 </html>

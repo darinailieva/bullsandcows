@@ -27,7 +27,7 @@ public class RegisterController {
     @GetMapping("/register")
     public String showRegistrationPage(Model model) {
         model.addAttribute("userDTO", new UserDTO());
-        return "register-user";
+        return "register";
     }
 
     @PostMapping("/register")
@@ -37,6 +37,6 @@ public class RegisterController {
             throw new DuplicateEntityException("User","username", user.getUsername());
         }
         userService.createUser(user);
-        return "confirm-registration";
+        return "login";
     }
 }

@@ -1,97 +1,87 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
 
 <head>
+    <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-    <title>Ninestars Bootstrap Template - Index</title>
-    <meta content="" name="description">
-    <meta content="" name="keywords">
-
-    <!-- Favicons -->
-    <link th:href="@{../static/img/favicon.png}" rel="icon">
-    <link th:href="@{../static/img/apple-touch-icon.png}" rel="apple-touch-icon">
-
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,600,600i,700,700i"
-          rel="stylesheet">
-
-    <!-- Vendor CSS Files -->
-    <link th:href="@{../static/vendor/aos/aos.css}" rel="stylesheet">
-    <link th:href="@{..static/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
-    <link th:href="@{..static/vendor/bootstrap-icons/bootstrap-icons.css}" rel="stylesheet">
-    <link th:href="@{..static/vendor/boxicons/css/boxicons.min.css}" rel="stylesheet">
-    <link th:href="@{..static/vendor/glightbox/css/glightbox.min.css}" rel="stylesheet">
-    <link th:href="@{..static/vendor/swiper/swiper-bundle.min.css}" rel="stylesheet">
-
-    <!-- Template Main CSS File -->
-    <link th:href="@{/css/style.css}" rel="stylesheet">
-
-    <!-- =======================================================
-    * Template Name: Ninestars - v4.7.0
-    * Template URL: https://bootstrapmade.com/ninestars-free-bootstrap-3-theme-for-creative/
-    * Author: BootstrapMade.com
-    * License: https://bootstrapmade.com/license/
-    ======================================================== -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Purple Admin</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
-
 <body>
-
-<!-- ======= Header ======= -->
-<header id="header" class="fixed-top d-flex align-items-center">
-    <div class="container d-flex align-items-center justify-content-between">
-
-        <div class="logo">
-            <h1 class="text-light"><a href="index.html"><span>Ninestars</span></a></h1>
-            <!-- Uncomment below if you prefer to use an image logo -->
-            <!-- <a href="index.html"><img src="static/img/logo.png" alt="" class="img-fluid"></a>-->
-        </div>
-
-        <nav id="navbar" class="navbar">
-            <ul>
-                <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
-                <li><a class="nav-link scrollto" href="#about">About Us</a></li>
-                <li><a class="nav-link scrollto" href="#services">Services</a></li>
-                <li><a class="nav-link scrollto" href="#portfolio">Portfolio</a></li>
-                <li><a class="nav-link scrollto" href="#team">Team</a></li>
-                <li sec:authorize="!isAuthenticated()"><a class="ticker-btn" th:href="@{/register}">Register</a></li>
+<!-- partial -->
+<div class="container-fluid page-body-wrapper">
+    <div class="row row-offcanvas row-offcanvas-right">
+        <!-- partial:partials/_sidebar.html -->
+        <nav class="sidebar sidebar-offcanvas" id="sidebar">
+            <ul class="nav">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}">
+                        <span class="menu-title">Dashboard</span>
+                        <i class="mdi mdi-home menu-icon"></i>
+                    </a>
+                </li>
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <a class="nav-link" th:href="@{/games}">
+                        <span class="menu-title">My games</span>
+                        <i class="mdi mdi-home menu-icon"></i>
+                    </a>
+                </li>
+                <li class="nav-item" th:action="@{/logout}" sec:authorize="isAuthenticated()" method="get">
+                    <a class="nav-link" th:href="logout">
+                        <span class="menu-title">Logout</span>
+                        <i class="mdi mdi-home menu-icon"></i>
+                    </a>
+                </li>
+                <li class="nav-item" sec:authorize="!isAuthenticated()">
+                    <a class="nav-link" th:href="@{/register}">
+                        <span class="menu-title">Register</span>
+                        <i class="mdi mdi-home menu-icon"></i>
+                    </a>
+                </li>
+                <li class="nav-item" sec:authorize="!isAuthenticated()">
+                    <a class="nav-link" th:href="@{/login}">
+                        <span class="menu-title">Login</span>
+                        <i class="mdi mdi-home menu-icon"></i>
+                    </a>
+                </li>
             </ul>
-            <i class="bi bi-list mobile-nav-toggle"></i>
-        </nav><!-- .navbar -->
-    </div>
-</header><!-- End Header -->
 
-<!-- ======= Hero Section ======= -->
-<main id="main">
-    <!-- ======= Contact Us Section ======= -->
-    <section id="contact" class="contact">
-        <div class="container" data-aos="fade-up">
+            <div class="wrapper upgrade-button">
+                <a th:action="@{/game}" sec:authorize="isAuthenticated()" method="get" th:href="@{/game}"
+                   class="btn btn-lg btn-block purchase-button">Start a new game</a>
+            </div>
 
-
+        </nav>
+        <!-- partial -->
+        <div class="content-wrapper">
             <div class="row">
-                <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="300">
-                    <div class="icon-box">
-                        <div class="icon"><i class="bx bxl-dribbble"></i></div>
-                        <a><h4 th:text="${gameId}">GameId</h4></a>
-                        <div class="single-post d-flex flex-row">
-                            <div class="thumb">
-                                <h5 class="description">Game history</h5>
-                                <table>
+                <div class="col-12 grid-margin">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title" th:text="${gameId}">GameId</h4>
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
                                     <thead>
-                                    <tr>
-                                        <th><h6 class="description">Bulls</h6></th>
-                                        <th><h6 class="description">Cows</h6></th>
-                                        <th><h6 class="description">Guessed number</h6></th>
+                                    <tr class="table-warning">
+                                        <th>Bulls
+                                        </th>
+                                        <th>Cows
+                                        </th>
+                                        <th>Guessed numbers
+                                        </th>
                                     </tr>
                                     </thead>
-                                    <tbody>
-                                    <tr th:each="attempt: ${attempts}">
-                                        <td th:text="${attempt.bulls}"></td>
-                                        <td th:text="${attempt.cows}"></td>
-                                        <td th:text="${attempt.currentNumber}"></td>
-                                    <tr/>
+                                    <tbody th:each="attempt: ${attempts}" sec:authorize="isAuthenticated()">
+                                    <tr>
+                                        <td th:text="${attempt.bulls}">
+                                        </td>
+                                        <td th:text="${attempt.cows}">
+                                        </td>
+                                        <td th:text="${attempt.currentNumber}">
+                                        </td>
+                                    </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -99,54 +89,28 @@
 
                     </div>
                 </div>
-
-                <div class="row">
-
-                    <div class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch" data-aos="fade-up"
-                         data-aos-delay="200">
-                        <form autocomplete="off" th:if="!${game.isFinished()}" action="#"
-                              th:action="@{/game/{gameId} (gameId=${game.gameId})}"
-                              method="post" role="form" class="php-email-form" sec:authorize="isAuthenticated()">
-                            <div class="row">
-                                <div class="form-group col-md-6">
-                                    <h3>Number to guess</h3>
-                                    <label>
-                                        <input type="text" name="currentNumber"/>
-                                    </label>
-                                </div>
-                                <div class="text-center">
-                                    <input type="submit" value="Submit"/>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-
-                </div>
-
             </div>
-    </section><!-- End Contact Us Section -->
-
-</main><!-- End #main -->
-
-<!-- ======= Footer ======= -->
-<footer id="footer">
-
-</footer><!-- End Footer -->
-
-<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-        class="bi bi-arrow-up-short"></i></a>
-
-<!-- Vendor JS Files -->
-<script th:src="@{../static/vendor/aos/aos.js}"></script>
-<script th:src="@{../static/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
-<script th:src="@{../static/vendor/glightbox/js/glightbox.min.js}"></script>
-<script th:src="@{../static/vendor/isotope-layout/isotope.pkgd.min.js}"></script>
-<script th:src="@{../static/vendor/swiper/swiper-bundle.min.js}"></script>
-<script th:src="@{../static/vendor/php-email-form/validate.js}"></script>
-
-<!-- Template Main JS File -->
-<script th:src="@{../static/js/main.js}"></script>
-
+            <div class="card" th:if="!${game.isFinished()}">
+                <div class="card-body">
+                    <form class="forms-sample"
+                          th:action="@{/game/{gameId} (gameId=${game.gameId})}"
+                          method="post">
+                        <div class="form-group">
+                            <input type="text" name="currentNumber" placeholder="Number"/>
+                        </div>
+                        <button type="submit" class="btn btn-info mr-2">Guess</button>
+                    </form>
+                </div>
+            </div>
+            <!-- content-wrapper ends -->
+            <!-- partial:partials/_footer.html -->
+            <!-- partial -->
+        </div>
+        <!-- row-offcanvas ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+</div>
+<!-- container-scroller -->
 </body>
 
 </html>

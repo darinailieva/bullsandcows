@@ -16,7 +16,6 @@ import java.security.Principal;
 import static com.brainstars.bullsandcows.mappers.GameMapper.convertToAttempt;
 
 @Controller
-@RequestMapping("/game")
 public class GameController {
     private GameService gameService;
 
@@ -24,26 +23,20 @@ public class GameController {
     public GameController(GameService gameService) {
         this.gameService = gameService;
     }
-//    @GetMapping("/games")
-//    public String getAll(Model model) {
-//        model.addAttribute("games", gameService.getAllGames());
-//        return "/";
-//    }
-
-    @GetMapping("/my")
+    @GetMapping("/games")
     public String getStarted (Principal principal, Model model){
         model.addAttribute("games", gameService.getAllUserGames(principal.getName()));
         return "my-games";
     }
 
-    @GetMapping
+    @GetMapping("/game")
     public String startGame(Principal principal, Model model) {
         Game game = gameService.startGame(principal);
         model.addAttribute("game", game);
         return "game";
     }
 
-    @GetMapping("{gameId}")
+    @GetMapping("/game/{gameId}")
     public String showGame(@PathVariable int gameId, Model model) {
         Game game = gameService.getById(gameId);
         model.addAttribute("game", game);
@@ -55,14 +48,13 @@ public class GameController {
         return "game";
     }
 
-    @PostMapping("{gameId}")
+    @PostMapping("/game/{gameId}")
     public String guessNumber(@PathVariable int gameId, @ModelAttribute("currentAttemptRequest") AttemptRequest request) {
         validateAttemptRequest(request);
         Attempt attempt = convertToAttempt(request);
         gameService.guessNumber(gameId, attempt);
         return "redirect:/game/" + gameId;
     }
-
     private void validateAttemptRequest(AttemptRequest request) {
         String currentNumber = request.getCurrentNumber();
         int length = currentNumber.length();
