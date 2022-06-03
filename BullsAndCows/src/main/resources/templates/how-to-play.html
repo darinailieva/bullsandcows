@@ -49,64 +49,29 @@
                             <i class="mdi mdi-home menu-icon"></i>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/rules}">
-                            <span class="menu-title">How to play</span>
-                            <i class="mdi mdi-home menu-icon"></i>
-                        </a>
-                    </li>
                 </ul>
+
                 <div class="wrapper upgrade-button">
                     <a th:action="@{/game}" sec:authorize="isAuthenticated()" method="get" th:href="@{/game}"
                        class="btn btn-lg btn-block purchase-button">Start a new game</a>
                 </div>
+                <div class="sidebar-progress" sec:authorize="!isAuthenticated()">
+                    <p>Welcome to Bulls and Cows</p>
+                </div>
+
             </nav>
             <div class="content-wrapper">
                 <div class="row">
                     <div class="col-12 grid-margin">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">My games</h4>
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <thead>
-                                        <tr>
-                                            <th>
-                                                Game id
-                                            </th>
-                                            <th>Action
-                                            </th>
-                                            <th>
-                                                Times Played
-                                            </th>
-                                            <th>
-                                                Start date
-                                            </th>
-                                            <th>Finish date
-                                            </th>
-                                        </tr>
-                                        </thead>
-                                        <tbody th:each="game:${games}" sec:authorize="isAuthenticated()">
-                                        <tr>
-                                            <td th:text="${game.gameId}">
-                                            <td>
-                                                <a th:if="${game.isFinished()}"
-                                                   th:href="@{/game/{gameId} (gameId=${game.gameId})}"
-                                                   class="badge badge-gradient-success">VIEW</a>
-                                                <a th:if="${!game.isFinished()}"
-                                                   th:href="@{/game/{gameId} (gameId=${game.gameId})}"
-                                                   class="badge badge-gradient-warning">CONTINUE</a>
-                                            </td>
-                                            <td th:text="${game.timesPlayed}">
-                                            </td>
-                                            <td th:text="${game.createdDate}">
-                                            </td>
-                                            <td th:if="${game.isFinished()}" th:text="${game.lastModifiedDate}">
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+                                <h2 class="card-title">In order to start playing Bulls and Cows, you need to follow
+                                    those steps: </h2>
+                                <h4>1. Register</h4>
+                                <h4>2. Login</h4>
+                                <h4>3. Start a new game</h4>
+                                <h4>4. Guess the number</h4>
+                                <h4>5. Check the game history in order to see how many bulls and cows you have</h4>
                             </div>
                         </div>
                     </div>
@@ -117,3 +82,4 @@
 </div>
 </body>
 </html>
+

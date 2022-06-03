@@ -26,4 +26,9 @@ public class HomeController {
         model.addAttribute("users", usersResponses);
         return "index";
     }
+
+    @GetMapping("/rules")
+    public String showRulesPage() {
+        return "how-to-play";
+    }
 }

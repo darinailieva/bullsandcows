@@ -68,11 +68,6 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public List<Game> getAllGames() {
-        return gameRepository.getAllGamesOrderByTimesPlayed();
-    }
-
-    @Override
     public List<Object[]> findAllByMinTimesPlayedAndMinDateDifference() {
         return gameRepository.findAllByMinTimesPlayedAndMinDateDifference();
     }

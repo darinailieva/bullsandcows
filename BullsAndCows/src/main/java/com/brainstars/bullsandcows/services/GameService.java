@@ -11,8 +11,6 @@ public interface GameService {
 
     void guessNumber(int gameId, Attempt attempt);
 
-    List<Game> getAllGames();
-
     Game getById(int gameId);
 
     List<Game> getAllUserGames(String username);

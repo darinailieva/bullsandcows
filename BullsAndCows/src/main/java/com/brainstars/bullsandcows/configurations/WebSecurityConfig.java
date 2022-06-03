@@ -24,9 +24,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .loginPage("/login")
-               // .failureUrl("/login-error.html")
                 .and()
-                .logout()
+                .logout().clearAuthentication(true)
                 .logoutSuccessUrl("/")
                 .and()
                 .authorizeRequests().antMatchers("/console/**").permitAll();

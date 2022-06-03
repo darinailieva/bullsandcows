@@ -3,114 +3,117 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
 
 <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Purple Admin</title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-<!-- partial -->
-<div class="container-fluid page-body-wrapper">
-    <div class="row row-offcanvas row-offcanvas-right">
-        <!-- partial:partials/_sidebar.html -->
-        <nav class="sidebar sidebar-offcanvas" id="sidebar">
-            <ul class="nav">
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/}">
-                        <span class="menu-title">Dashboard</span>
-                        <i class="mdi mdi-home menu-icon"></i>
-                    </a>
-                </li>
-                <li class="nav-item" sec:authorize="isAuthenticated()">
-                    <a class="nav-link" th:href="@{/games}">
-                        <span class="menu-title">My games</span>
-                        <i class="mdi mdi-home menu-icon"></i>
-                    </a>
-                </li>
-                <li class="nav-item" th:action="@{/logout}" sec:authorize="isAuthenticated()" method="get">
-                    <a class="nav-link" th:href="logout">
-                        <span class="menu-title">Logout</span>
-                        <i class="mdi mdi-home menu-icon"></i>
-                    </a>
-                </li>
-                <li class="nav-item" sec:authorize="!isAuthenticated()">
-                    <a class="nav-link" th:href="@{/register}">
-                        <span class="menu-title">Register</span>
-                        <i class="mdi mdi-home menu-icon"></i>
-                    </a>
-                </li>
-                <li class="nav-item" sec:authorize="!isAuthenticated()">
-                    <a class="nav-link" th:href="@{/login}">
-                        <span class="menu-title">Login</span>
-                        <i class="mdi mdi-home menu-icon"></i>
-                    </a>
-                </li>
-            </ul>
+<div class="container-scroller">
+    <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+        <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+            <a class="navbar-brand brand-logo" th:href="@{/}">BULLS AND COWS</a>
+        </div>
+    </nav>
+    <div class="container-fluid page-body-wrapper">
+        <div class="row row-offcanvas row-offcanvas-right">
+            <nav class="sidebar sidebar-offcanvas" id="sidebar">
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/}">
+                            <span class="menu-title">Dashboard</span>
+                            <i class="mdi mdi-home menu-icon"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item" sec:authorize="isAuthenticated()">
+                        <a class="nav-link" th:href="@{/games}">
+                            <span class="menu-title">My games</span>
+                            <i class="mdi mdi-home menu-icon"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item" th:action="@{/logout}" sec:authorize="isAuthenticated()" method="get">
+                        <a class="nav-link" th:href="@{/logout}">
+                            <span class="menu-title">Logout</span>
+                            <i class="mdi mdi-home menu-icon"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item" sec:authorize="!isAuthenticated()">
+                        <a class="nav-link" th:href="@{/register}">
+                            <span class="menu-title">Register</span>
+                            <i class="mdi mdi-home menu-icon"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item" sec:authorize="!isAuthenticated()">
+                        <a class="nav-link" th:href="@{/login}">
+                            <span class="menu-title">Login</span>
+                            <i class="mdi mdi-home menu-icon"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/rules}">
+                            <span class="menu-title">How to play</span>
+                            <i class="mdi mdi-home menu-icon"></i>
+                        </a>
+                    </li>
+                </ul>
 
-            <div class="wrapper upgrade-button">
-                <a th:action="@{/game}" sec:authorize="isAuthenticated()" method="get" th:href="@{/game}"
-                   class="btn btn-lg btn-block purchase-button">Start a new game</a>
-            </div>
+                <div class="wrapper upgrade-button">
+                    <a th:action="@{/game}" sec:authorize="isAuthenticated()" method="get" th:href="@{/game}"
+                       class="btn btn-lg btn-block purchase-button">Start a new game</a>
+                </div>
 
-        </nav>
-        <!-- partial -->
-        <div class="content-wrapper">
-            <div class="row">
-                <div class="col-12 grid-margin">
-                    <div class="card">
-                        <div class="card-body">
-                            <h4 class="card-title" th:text="${gameId}">GameId</h4>
-                            <div class="table-responsive">
-                                <table class="table table-bordered">
-                                    <thead>
-                                    <tr class="table-warning">
-                                        <th>Bulls
-                                        </th>
-                                        <th>Cows
-                                        </th>
-                                        <th>Guessed numbers
-                                        </th>
-                                    </tr>
-                                    </thead>
-                                    <tbody th:each="attempt: ${attempts}" sec:authorize="isAuthenticated()">
-                                    <tr>
-                                        <td th:text="${attempt.bulls}">
-                                        </td>
-                                        <td th:text="${attempt.cows}">
-                                        </td>
-                                        <td th:text="${attempt.currentNumber}">
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
+            </nav>
+            <div class="content-wrapper">
+                <div class="row">
+                    <div class="col-12 grid-margin">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title" th:text="${gameId}">GameId</h4>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                        <tr class="table-warning">
+                                            <th>Bulls
+                                            </th>
+                                            <th>Cows
+                                            </th>
+                                            <th>Guessed numbers
+                                            </th>
+                                        </tr>
+                                        </thead>
+                                        <tbody th:each="attempt: ${attempts}" sec:authorize="isAuthenticated()">
+                                        <tr>
+                                            <td th:text="${attempt.bulls}">
+                                            </td>
+                                            <td th:text="${attempt.cows}">
+                                            </td>
+                                            <td th:text="${attempt.currentNumber}">
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
-                        </div>
 
+                        </div>
+                    </div>
+                </div>
+                <div class="card" th:if="!${game.isFinished()}">
+                    <div class="card-body">
+                        <form class="forms-sample"
+                              th:action="@{/game/{gameId} (gameId=${game.gameId})}"
+                              method="post">
+                            <div class="form-group">
+                                <input type="text" name="currentNumber" placeholder="Number"/>
+                            </div>
+                            <button type="submit" class="btn btn-info mr-2">Guess</button>
+                        </form>
                     </div>
                 </div>
             </div>
-            <div class="card" th:if="!${game.isFinished()}">
-                <div class="card-body">
-                    <form class="forms-sample"
-                          th:action="@{/game/{gameId} (gameId=${game.gameId})}"
-                          method="post">
-                        <div class="form-group">
-                            <input type="text" name="currentNumber" placeholder="Number"/>
-                        </div>
-                        <button type="submit" class="btn btn-info mr-2">Guess</button>
-                    </form>
-                </div>
-            </div>
-            <!-- content-wrapper ends -->
-            <!-- partial:partials/_footer.html -->
-            <!-- partial -->
         </div>
-        <!-- row-offcanvas ends -->
     </div>
-    <!-- page-body-wrapper ends -->
 </div>
-<!-- container-scroller -->
 </body>
 
 </html>
