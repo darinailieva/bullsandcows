@@ -56,7 +56,7 @@ public class GameController {
     @PostMapping("/game/{gameId}")
     public String guessNumber(@PathVariable int gameId, @ModelAttribute("attemptRequest") AttemptRequest request, BindingResult errors) {
         InvalidParameterException exception = validateAttemptRequest(request);
-        if (exception != null){
+        if (exception != null) {
             ObjectError error = new ObjectError("error", exception.getMessage());
             errors.addError(error);
         }
@@ -75,7 +75,7 @@ public class GameController {
         if (length > 4) {
             return new InvalidParameterException("Guessed number");
         }
-        if(!currentNumber.matches("^[0-9]*$")){
+        if (!currentNumber.matches("^[0-9]*$")) {
             return new InvalidParameterException("Guessed number");
         }
 
