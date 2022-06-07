@@ -8,10 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.Objects;
 
 import static com.brainstars.bullsandcows.mappers.UserMapper.convertToUser;
 
@@ -31,10 +34,14 @@ public class RegisterController {
     }
 
     @PostMapping("/register")
-    public String registerUser(@ModelAttribute("userDTO") UserDTO userDTO) {
+    public String registerUser(@ModelAttribute("userDTO") UserDTO userDTO, BindingResult errors) {
         User user = convertToUser(userDTO);
         if (userService.userExists(user)) {
-            throw new DuplicateEntityException("User","username", user.getUsername());
+            ObjectError error = new ObjectError("error", new DuplicateEntityException("User", "username", userDTO.getUsername()).getMessage());
+            errors.addError(error);
+        }
+        if (errors.hasErrors()) {
+            return "register";
         }
         userService.createUser(user);
         return "login";

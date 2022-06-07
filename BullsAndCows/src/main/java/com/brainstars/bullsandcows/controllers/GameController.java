@@ -1,5 +1,6 @@
 package com.brainstars.bullsandcows.controllers;
 
+import com.brainstars.bullsandcows.exceptions.DuplicateEntityException;
 import com.brainstars.bullsandcows.exceptions.InvalidParameterException;
 import com.brainstars.bullsandcows.models.Attempt;
 import com.brainstars.bullsandcows.models.Game;
@@ -9,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 
@@ -51,29 +54,38 @@ public class GameController {
     }
 
     @PostMapping("/game/{gameId}")
-    public String guessNumber(@PathVariable int gameId, @ModelAttribute("currentAttemptRequest") AttemptRequest request) {
-        validateAttemptRequest(request);
+    public String guessNumber(@PathVariable int gameId, @ModelAttribute("attemptRequest") AttemptRequest request, BindingResult errors) {
+        InvalidParameterException exception = validateAttemptRequest(request);
+        if (exception != null){
+            ObjectError error = new ObjectError("error", exception.getMessage());
+            errors.addError(error);
+        }
+        if (errors.hasErrors()) {
+            return "redirect:/game/" + gameId;
+        }
+
         Attempt attempt = convertToAttempt(request);
         gameService.guessNumber(gameId, attempt);
         return "redirect:/game/" + gameId;
     }
 
-    private void validateAttemptRequest(AttemptRequest request) {
+    private InvalidParameterException validateAttemptRequest(AttemptRequest request) {
         String currentNumber = request.getCurrentNumber();
         int length = currentNumber.length();
         if (length > 4) {
-            throw new InvalidParameterException("Guessed number");
+            return new InvalidParameterException("Guessed number");
         }
         if(!currentNumber.matches("^[0-9]*$")){
-            throw new InvalidParameterException("Guessed number");
+            return new InvalidParameterException("Guessed number");
         }
 
         for (int i = 0; i < length; i++) {
             for (int j = 0; j < length; j++) {
                 if (i != j && currentNumber.charAt(i) == currentNumber.charAt(j)) {
-                    throw new InvalidParameterException("Current number");
+                    return new InvalidParameterException("Guessed number");
                 }
             }
         }
+        return null;
     }
 }
