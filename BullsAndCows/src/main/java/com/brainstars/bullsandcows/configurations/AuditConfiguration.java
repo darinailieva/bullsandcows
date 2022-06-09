@@ -1,6 +1,7 @@
 package com.brainstars.bullsandcows.configurations;
 
 import com.brainstars.bullsandcows.services.AuditorAwareImpl;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;
@@ -14,8 +15,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @EnableJpaAuditing(auditorAwareRef = "auditorProvider")
 public class AuditConfiguration {
 
-    @Bean
-    public AuditorAware<String> auditorProvider() {
-        return new AuditorAwareImpl();
-    }
+  @Bean
+  public AuditorAware<String> auditorProvider() {
+    return new AuditorAwareImpl();
+  }
 }

@@ -31,7 +31,8 @@
                             <i class="mdi mdi-home menu-icon"></i>
                         </a>
                     </li>
-                    <li class="nav-item" th:action="@{/logout}" sec:authorize="isAuthenticated()" method="get">
+                    <li class="nav-item" th:action="@{/logout}" sec:authorize="isAuthenticated()"
+                        method="get">
                         <a class="nav-link" th:href="logout">
                             <span class="menu-title">Logout</span>
                             <i class="mdi mdi-home menu-icon"></i>
@@ -52,7 +53,8 @@
                 </ul>
 
                 <div class="wrapper upgrade-button">
-                    <a th:action="@{/game}" sec:authorize="isAuthenticated()" method="get" th:href="@{/game}"
+                    <a th:action="@{/game}" sec:authorize="isAuthenticated()" method="get"
+                       th:href="@{/game}"
                        class="btn btn-lg btn-block purchase-button">Start a new game</a>
                 </div>
                 <div class="sidebar-progress" sec:authorize="!isAuthenticated()">
@@ -65,13 +67,15 @@
                     <div class="col-12 grid-margin">
                         <div class="card">
                             <div class="card-body">
-                                <h2 class="card-title">In order to start playing Bulls and Cows, you need to follow
+                                <h2 class="card-title">In order to start playing Bulls and Cows, you
+                                    need to follow
                                     those steps: </h2>
                                 <h4>1. Register</h4>
                                 <h4>2. Login</h4>
                                 <h4>3. Start a new game</h4>
                                 <h4>4. Guess the number</h4>
-                                <h4>5. Check the game history in order to see how many bulls and cows you have</h4>
+                                <h4>5. Check the game history in order to see how many bulls and
+                                    cows you have</h4>
                             </div>
                         </div>
                     </div>

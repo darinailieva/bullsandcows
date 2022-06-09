@@ -3,6 +3,7 @@ package com.brainstars.bullsandcows.services;
 import com.brainstars.bullsandcows.models.User;
 
 public interface UserService {
-    void createUser(User user);
-    boolean userExists(String username);
+  void createUser(User user);
+
+  boolean userExists(String username);
 }

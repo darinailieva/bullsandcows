@@ -6,5 +6,5 @@ import lombok.Setter;
 @Setter
 @Getter
 public class AttemptRequest {
-    private String currentNumber;
+  private String currentNumber;
 }

@@ -1,15 +1,11 @@
 package com.brainstars.bullsandcows.controllers;
 
-import com.brainstars.bullsandcows.models.dtos.UsersResponse;
 import com.brainstars.bullsandcows.services.GameService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
-import java.util.List;
-
-import static com.brainstars.bullsandcows.mappers.GameMapper.convertToUsersResponse;
 
 @Controller
 public class HomeController {
@@ -23,7 +19,7 @@ public class HomeController {
     @GetMapping("/")
     public String showRegistrationPage(Model model) {
 //        List<UsersResponse> usersResponses = convertToUsersResponse(gameService.findAllByMinTimesPlayedAndMinDateDifference());
-//        model.addAttribute("users", usersResponses);
+        //        model.addAttribute("users", usersResponses);
         return "index";
     }
 

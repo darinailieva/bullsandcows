@@ -31,7 +31,8 @@
                             <i class="mdi mdi-home menu-icon"></i>
                         </a>
                     </li>
-                    <li class="nav-item" th:action="@{/logout}" sec:authorize="isAuthenticated()" method="get">
+                    <li class="nav-item" th:action="@{/logout}" sec:authorize="isAuthenticated()"
+                        method="get">
                         <a class="nav-link" th:href="@{/logout}">
                             <span class="menu-title">Logout</span>
                             <i class="mdi mdi-home menu-icon"></i>
@@ -58,7 +59,8 @@
                 </ul>
 
                 <div class="wrapper upgrade-button">
-                    <a th:action="@{/game}" sec:authorize="isAuthenticated()" method="get" th:href="@{/game}"
+                    <a th:action="@{/game}" sec:authorize="isAuthenticated()" method="get"
+                       th:href="@{/game}"
                        class="btn btn-lg btn-block purchase-button">Start a new game</a>
                 </div>
 
@@ -81,7 +83,8 @@
                                             </th>
                                         </tr>
                                         </thead>
-                                        <tbody th:each="attempt: ${attempts}" sec:authorize="isAuthenticated()">
+                                        <tbody th:each="attempt: ${attempts}"
+                                               sec:authorize="isAuthenticated()">
                                         <tr>
                                             <td th:text="${attempt.bulls}">
                                             </td>
@@ -111,8 +114,15 @@
                 </div>
                 <div class="card" th:if="${game.isFinished()}">
                     <div class="card-body">
-                        <div class="tenor-gif-embed" data-postid="25183759" data-share-method="host" data-aspect-ratio="1.45455" data-width="100%"><a href="https://tenor.com/view/whoa-whoa-gif-gif-25183759">Whoa Whoa Gif GIF</a>from <a href="https://tenor.com/search/whoa-gifs">Whoa GIFs</a></div> <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
-                        <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+                        <div class="tenor-gif-embed" data-postid="25183759" data-share-method="host"
+                             data-aspect-ratio="1.45455" data-width="100%"><a
+                                href="https://tenor.com/view/whoa-whoa-gif-gif-25183759">Whoa Whoa
+                            Gif GIF</a>from <a href="https://tenor.com/search/whoa-gifs">Whoa
+                            GIFs</a></div>
+                        <script type="text/javascript" async
+                                src="https://tenor.com/embed.js"></script>
+                        <script type="text/javascript" async
+                                src="https://tenor.com/embed.js"></script>
                     </div>
                 </div>
             </div>

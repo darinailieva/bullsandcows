@@ -31,7 +31,8 @@
                             <i class="mdi mdi-home menu-icon"></i>
                         </a>
                     </li>
-                    <li class="nav-item" th:action="@{/logout}" sec:authorize="isAuthenticated()" method="get">
+                    <li class="nav-item" th:action="@{/logout}" sec:authorize="isAuthenticated()"
+                        method="get">
                         <a class="nav-link" th:href="logout">
                             <span class="menu-title">Logout</span>
                             <i class="mdi mdi-home menu-icon"></i>
@@ -57,7 +58,8 @@
                     </li>
                 </ul>
                 <div class="wrapper upgrade-button">
-                    <a th:action="@{/game}" sec:authorize="isAuthenticated()" method="get" th:href="@{/game}"
+                    <a th:action="@{/game}" sec:authorize="isAuthenticated()" method="get"
+                       th:href="@{/game}"
                        class="btn btn-lg btn-block purchase-button">Start a new game</a>
                 </div>
             </nav>
@@ -86,7 +88,8 @@
                                             </th>
                                         </tr>
                                         </thead>
-                                        <tbody th:each="game:${games}" sec:authorize="isAuthenticated()">
+                                        <tbody th:each="game:${games}"
+                                               sec:authorize="isAuthenticated()">
                                         <tr>
                                             <td th:text="${game.gameId}">
                                             <td>
@@ -101,7 +104,8 @@
                                             </td>
                                             <td th:text="${game.createdDate}">
                                             </td>
-                                            <td th:if="${game.isFinished()}" th:text="${game.lastModifiedDate}">
+                                            <td th:if="${game.isFinished()}"
+                                                th:text="${game.lastModifiedDate}">
                                             </td>
                                         </tr>
                                         </tbody>

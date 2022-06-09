@@ -10,8 +10,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UsersResponse {
-    private String username;
-    private int numberOfFinishedGames;
-    private int bestTimesPlayed;
-    private int bestTime;
+  private String username;
+  private int numberOfFinishedGames;
+  private int bestTimesPlayed;
+  private int bestTime;
 }
