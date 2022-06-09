@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet author="darina" id="1">
+        <createTable tableName="games">
+            <column name="game_id" type="INTEGER" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" unique="true"/>
+            </column>
+            <column name="times_played" type="INTEGER"/>
+            <column name="number_to_guess" type="VARCHAR(4)"/>
+            <column name="username" type="VARCHAR(255)">
+                <constraints validateForeignKey="true"/>
+            </column>
+            <column name="created_date" type="TIMESTAMP"/>
+            <column name="last_modified_date" type="TIMESTAMP"/>
+            <column name="finished" type="BOOLEAN"/>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
