@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean userExists(User user) {
-        return userDetailsManager.userExists(user.getUsername());
+    public boolean userExists(String username) {
+        return userDetailsManager.userExists(username);
     }
 }

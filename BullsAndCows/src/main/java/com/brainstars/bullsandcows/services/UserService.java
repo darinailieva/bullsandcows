@@ -4,5 +4,5 @@ import com.brainstars.bullsandcows.models.User;
 
 public interface UserService {
     void createUser(User user);
-    boolean userExists(User user);
+    boolean userExists(String username);
 }

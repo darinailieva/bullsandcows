@@ -35,14 +35,14 @@ public class RegisterController {
 
     @PostMapping("/register")
     public String registerUser(@ModelAttribute("userDTO") UserDTO userDTO, BindingResult errors) {
-        User user = convertToUser(userDTO);
-        if (userService.userExists(user)) {
+        if (userService.userExists(userDTO.getUsername())) {
             ObjectError error = new ObjectError("error", new DuplicateEntityException("User", "username", userDTO.getUsername()).getMessage());
             errors.addError(error);
         }
         if (errors.hasErrors()) {
             return "register";
         }
+        User user = convertToUser(userDTO);
         userService.createUser(user);
         return "login";
     }
