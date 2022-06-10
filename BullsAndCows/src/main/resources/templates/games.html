@@ -1,0 +1,104 @@
+<!--TODO remove it -->
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org"-->
+<!--      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">-->
+
+<!--<head>-->
+<!--    <meta charset="utf-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">-->
+<!--    <title>Bulls and Cows</title>-->
+<!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
+<!--    <script type="text/javascript" charset="utf8"-->
+<!--            src="https://cdn.datatables.net/1.11.1/js/jquery.dataTables.js"></script>-->
+<!--    <link rel="stylesheet" href="/css/style.css">-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="container-scroller">-->
+<!--    <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">-->
+<!--        <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">-->
+<!--            <a class="navbar-brand brand-logo" th:href="@{/}">BULLS AND COWS</a>-->
+<!--        </div>-->
+<!--    </nav>-->
+<!--    <div class="container-fluid page-body-wrapper">-->
+<!--        <div class="row row-offcanvas row-offcanvas-right">-->
+<!--            <nav class="sidebar sidebar-offcanvas" id="sidebar">-->
+<!--                <ul class="nav">-->
+<!--                    <li class="nav-item">-->
+<!--                        <a class="nav-link">-->
+<!--                            <span class="menu-title" onclick="dashboard()">Dashboard</span>-->
+<!--                            <i class="mdi mdi-home menu-icon"></i>-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item" sec:authorize="isAuthenticated()">-->
+<!--                        <a class="nav-link">-->
+<!--                            <span class="menu-title" onclick="myGames()">My games</span>-->
+<!--                            <i class="mdi mdi-home menu-icon"></i>-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item" th:action="@{/logout}" sec:authorize="isAuthenticated()"-->
+<!--                        method="get">-->
+<!--                        <a class="nav-link" th:href="logout">-->
+<!--                            <span class="menu-title">Logout</span>-->
+<!--                            <i class="mdi mdi-home menu-icon"></i>-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item" sec:authorize="!isAuthenticated()">-->
+<!--                        <a class="nav-link">-->
+<!--                            <span class="menu-title" onclick="register()">Register</span>-->
+<!--                            <i class="mdi mdi-home menu-icon"></i>-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item" sec:authorize="!isAuthenticated()">-->
+<!--                        <a class="nav-link">-->
+<!--                            <span class="menu-title" onclick="login()">Login</span>-->
+<!--                            <i class="mdi mdi-home menu-icon"></i>-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item">-->
+<!--                        <a class="nav-link">-->
+<!--                            <span class="menu-title" onclick="rules()">How to play</span>-->
+<!--                            <i class="mdi mdi-home menu-icon"></i>-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--                <div class="sidebar-progress" sec:authorize="isAuthenticated()">-->
+<!--                    <p id="welcome"-->
+<!--                       th:text="'You are logged in as ' + ${#authentication.getPrincipal().getUsername()}"></p>-->
+<!--                </div>-->
+
+<!--                <div class="wrapper upgrade-button" sec:authorize="isAuthenticated()">-->
+<!--                    <input  type="button" class="btn btn-lg btn-block purchase-button" value="Start a new game" onclick="startNewGame()"/>-->
+<!--                </div>-->
+<!--            </nav>-->
+<!--            <div class="content-wrapper" onload="getUserGames()">-->
+<!--                <div class="row">-->
+<!--                    <div class="col-12 grid-margin">-->
+<!--                        <div class="card">-->
+<!--                            <div class="card-body">-->
+<!--                                <h4 class="card-title">My games</h4>-->
+<!--                                <div class="table-responsive">-->
+<!--                                    <table id="games" class="table">-->
+<!--                                        <thead>-->
+<!--                                        <tr>-->
+<!--                                            <th>Game id</th>-->
+<!--                                            <th>Action</th>-->
+<!--                                            <th>Times Played</th>-->
+<!--                                            <th>Start date</th>-->
+<!--                                            <th>Finish date</th>-->
+<!--                                        </tr>-->
+<!--                                        </thead>-->
+<!--                                        <tbody></tbody>-->
+<!--                                    </table>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<!--<script src="/js/index.js"></script>-->
+<!--&lt;!&ndash;<script src="/js/games.js"></script>&ndash;&gt;-->
+<!--</body>-->
+<!--</html>-->

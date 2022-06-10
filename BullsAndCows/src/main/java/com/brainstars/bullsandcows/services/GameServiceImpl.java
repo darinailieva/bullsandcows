@@ -1,6 +1,5 @@
 package com.brainstars.bullsandcows.services;
 
-import java.security.Principal;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
@@ -27,12 +26,12 @@ public class GameServiceImpl implements GameService {
   }
 
   @Override
-  public Game startGame(Principal principal) {
+  public Game startGame(String username) {
     int number = getRandomNumber();
     String strNumber = String.format("%04d", number);
     Game game = new Game();
     game.setNumberToGuess(strNumber);
-    game.setUsername(principal.getName());
+    game.setUsername(username);
     return gameRepository.save(game);
   }
 

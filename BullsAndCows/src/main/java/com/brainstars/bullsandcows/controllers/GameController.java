@@ -1,16 +1,21 @@
 package com.brainstars.bullsandcows.controllers;
 
 import static com.brainstars.bullsandcows.mappers.GameMapper.convertToAttempt;
+import static com.brainstars.bullsandcows.mappers.GameMapper.convertToGameResponses;
 
 import java.security.Principal;
+import java.util.List;
 
 import com.brainstars.bullsandcows.exceptions.InvalidParameterException;
 import com.brainstars.bullsandcows.models.Attempt;
 import com.brainstars.bullsandcows.models.Game;
 import com.brainstars.bullsandcows.models.dtos.AttemptRequest;
+import com.brainstars.bullsandcows.models.dtos.UserGameResponse;
 import com.brainstars.bullsandcows.services.GameService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,10 +24,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 public class GameController {
-  private GameService gameService;
+  private final GameService gameService;
 
   @Autowired
   public GameController(GameService gameService) {
@@ -30,16 +36,16 @@ public class GameController {
   }
 
   @GetMapping("/games")
-  public String getStarted(Principal principal, Model model) {
-    model.addAttribute("games", gameService.getAllUserGames(principal.getName()));
-    return "my-games";
+  public ResponseEntity<List<UserGameResponse>> getAllUserGames(Principal principal) {
+    List<Game> userGames = gameService.getAllUserGames(principal.getName());
+    List<UserGameResponse> userGameResponses = convertToGameResponses(userGames);
+    return new ResponseEntity<>(userGameResponses, HttpStatus.OK);
   }
 
-  @GetMapping("/game")
-  public String startGame(Principal principal, Model model) {
-    Game game = gameService.startGame(principal);
-    model.addAttribute("game", game);
-    return "game";
+  @PostMapping("/game")
+  public ResponseEntity<Integer> startGame(@RequestBody String username) {
+    Game game = gameService.startGame(username);
+    return new ResponseEntity<>(game.getGameId(), HttpStatus.OK);
   }
 
   @GetMapping("/game/{gameId}")

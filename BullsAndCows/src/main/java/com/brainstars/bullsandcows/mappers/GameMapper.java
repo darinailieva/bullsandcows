@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.Objects;
 
 import com.brainstars.bullsandcows.models.Attempt;
+import com.brainstars.bullsandcows.models.Game;
 import com.brainstars.bullsandcows.models.dtos.AttemptRequest;
+import com.brainstars.bullsandcows.models.dtos.UserGameResponse;
 import com.brainstars.bullsandcows.models.dtos.UsersResponse;
 
 public class GameMapper {
@@ -28,5 +30,19 @@ public class GameMapper {
       usersResponses.add(usersResponse);
     }
     return usersResponses;
+  }
+
+  public static List<UserGameResponse> convertToGameResponses(List<Game> userGames) {
+    List<UserGameResponse> userGamesResponses = new ArrayList<>();
+    for (Game game : userGames) {
+      var userGamesResponse = new UserGameResponse();
+      userGamesResponse.setGameId(game.getGameId());
+      userGamesResponse.setTimesPlayed(game.getTimesPlayed());
+      userGamesResponse.setCreatedDate(game.getCreatedDate());
+      userGamesResponse.setLastModifiedDate(game.getLastModifiedDate());
+      userGamesResponse.setFinished(game.isFinished());
+      userGamesResponses.add(userGamesResponse);
+    }
+    return userGamesResponses;
   }
 }

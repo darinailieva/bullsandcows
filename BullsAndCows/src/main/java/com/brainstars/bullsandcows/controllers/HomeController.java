@@ -17,7 +17,7 @@ public class HomeController {
     }
 
     @GetMapping("/")
-    public String showRegistrationPage(Model model) {
+    public String showRegistrationPage() {
 //        List<UsersResponse> usersResponses = convertToUsersResponse(gameService.findAllByMinTimesPlayedAndMinDateDifference());
         //        model.addAttribute("users", usersResponses);
         return "index";
