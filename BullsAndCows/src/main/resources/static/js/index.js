@@ -1,6 +1,6 @@
 function startNewGame() {
-    var fields = document.getElementById("welcome").innerText.split(" ");
-    var username = fields[5];
+    const fields = document.getElementById("welcome").innerText.split(" ");
+    const username = fields[5];
 
     $.ajax({
         method: "POST",
@@ -34,24 +34,100 @@ function rules() {
 }
 
 function getUserGames() {
-    $.ajax({
-        url: "/games",
-        method: "GET",
-        dataType: "json",
-        success: function (data) {
-            var tableBody = $('#games tbody');
-            tableBody.empty();
-                $(data).each(function (index, game){
-                    tableBody.append('<tr><td>'+game.gameId + '</td><td>'+game.timesPlayed+'</td><td>'+game.createdDate+'</td><td>'+game.lastModifiedDate);
-                    // if(game.isFinished() === true){
-                    //     tableBody.append(+'</td><td>'+'<td><a class="badge badge-gradient-success" onclick="getGame(game.gameId)">View</a></td>');
-                    // }else{
-                    //     tableBody.append(+'</td><td>'+'<td><a class="badge badge-gradient-warning" onclick="getGame(game.gameId)">Continue</a></td>');
-                    // }
-            })
-        }
+    let games;
+    $(document).ready(function () {
+        games = $('#games').DataTable({
+            "searching": false,
+            "ordering": false,
+            "info": false,
+            "paging": false,
+            "ajax": {
+                url: "/games",
+                method: "GET",
+                "dataSrc": "",
+            },
+            "columns": [
+                {data: "gameId"},
+                {data: "timesPlayed"},
+                {data: "createdDate"},
+                {data: "lastModifiedDate"},
+                {
+                    data: "finished",
+                    "render": function (data, type, row, meta) {
+                        if (data === true) {
+                            return "<input type='button' class='badge-gradient-success' value='View'  id='viewBtn' />";
+                        } else {
+                            return "<input type='button' class='badge-gradient-warning' value='Continue' id='viewBtn' />";
+                        }
+                    }
+                }
+            ]
+        })
+
     })
 }
+
+$('#games').on('click', '#viewBtn', function (e) {
+    e.stopPropagation();
+    const games = $('#games').DataTable();
+    let gameId = games.row($(this).closest('tr')).data().gameId;
+    getGame(gameId);
+});
+
 function getGame(gameId) {
-    location.href = '/game/' + gameId;
+    $.ajax({
+        method: "GET",
+        url: 'game/' + gameId,
+        contentType: "application/json",
+        success: function (response) {
+            successShowGame(response);
+        }
+    });
+}
+
+function successShowGame(response) {
+    if (response.finished === true) {
+        document.getElementById("notFinished").style.visibility = "hidden";
+    } else {
+        document.getElementById("notFinished").style.visibility = "visible";
+        $(document).ready(function () {
+            $("#attempt").submit(function () {
+                guessNumber(response.gameId);
+            });
+        });
+    }
+
+    if (response.finished === true) {
+        document.getElementById("finished").style.visibility = "visible";
+    } else {
+        document.getElementById("finished").style.visibility = "hidden";
+    }
+    $("#gameId").append(response.gameId);
+    response.attempts.forEach(
+        attempt => {
+            $("#game tbody").append(
+                "<tr>"
+                + "<td>" + attempt.bulls + "</td>"
+                + "<td>" + attempt.cows + "</td>"
+                + "<td>" + attempt.currentNumber + "</td>"
+                + "</tr>")
+
+        }
+    )
+
+}
+
+function guessNumber(gameId) {
+    var attempt = {};
+    attempt["currentNumber"] = $("#currentNumber").val();
+
+    $.ajax({
+        method: "PUT",
+        url: 'game/' + gameId,
+        contentType: "application/json",
+        data: JSON.stringify(attempt),
+        success: function (gameId) {
+            getGame(gameId);
+        }
+    });
 }

@@ -53,12 +53,12 @@ public class Game {
   private LocalDateTime lastModifiedDate;
 
   @Column(name = "finished")
-  boolean isFinished;
+  private Boolean isFinished;
 
   @OneToMany(mappedBy = "game",
     cascade = CascadeType.ALL,
     orphanRemoval = true)
-  List<Attempt> attempts;
+  private List<Attempt> attempts;
 
   public void addAttempt(Attempt attempt) {
     attempts.add(attempt);

@@ -45,7 +45,7 @@ public class GameServiceImpl implements GameService {
     int cows = 0;
     if (Objects.equals(numberToGuess, currentNumber)) {
       bulls = 4;
-      game.setFinished(true);
+      game.setIsFinished(true);
     } else {
       for (int i = 0; i < numberToGuess.length(); i++) {
         for (int j = 0; j < currentNumber.length(); j++) {
