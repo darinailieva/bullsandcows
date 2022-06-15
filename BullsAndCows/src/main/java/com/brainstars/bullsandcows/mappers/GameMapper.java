@@ -10,7 +10,6 @@ import com.brainstars.bullsandcows.models.dtos.AttemptRequest;
 import com.brainstars.bullsandcows.models.dtos.AttemptResponse;
 import com.brainstars.bullsandcows.models.dtos.GameResponse;
 import com.brainstars.bullsandcows.models.dtos.UserGameResponse;
-import com.brainstars.bullsandcows.models.dtos.UsersResponse;
 
 public class GameMapper {
   public static Attempt convertToAttempt(AttemptRequest request) {
@@ -21,19 +20,6 @@ public class GameMapper {
     return attempt;
   }
 
-  public static List<UsersResponse> convertToUsersResponse(List<Object[]> users) {
-    List<UsersResponse> usersResponses = new ArrayList<>();
-    for (Object[] user : users) {
-      var usersResponse = new UsersResponse();
-      usersResponse.setUsername(String.valueOf(user[0]));
-      usersResponse.setNumberOfFinishedGames(Integer.parseInt(user[1].toString()));
-      usersResponse.setBestTimesPlayed(Integer.parseInt(user[2].toString()));
-      usersResponse.setBestTime(Integer.parseInt(user[3].toString()));
-      usersResponses.add(usersResponse);
-    }
-    return usersResponses;
-  }
-
   public static List<UserGameResponse> convertToGameResponses(List<Game> userGames) {
     List<UserGameResponse> userGamesResponses = new ArrayList<>();
     for (Game game : userGames) {
@@ -42,7 +28,7 @@ public class GameMapper {
       userGamesResponse.setTimesPlayed(game.getTimesPlayed());
       userGamesResponse.setCreatedDate(game.getCreatedDate());
       userGamesResponse.setLastModifiedDate(game.getLastModifiedDate());
-      userGamesResponse.setFinished(game.getIsFinished());
+      userGamesResponse.setFinished(game.isFinished());
       userGamesResponses.add(userGamesResponse);
     }
     return userGamesResponses;
@@ -52,7 +38,7 @@ public class GameMapper {
     GameResponse response = new GameResponse();
     if (Objects.nonNull(game)) {
       response.setGameId(game.getGameId());
-      response.setFinished(game.getIsFinished());
+      response.setFinished(game.isFinished());
       List<AttemptResponse> attempts = new ArrayList<>();
       for (int i = 0; i < game.getAttempts().size(); i++) {
         AttemptResponse attemptResponse = new AttemptResponse();

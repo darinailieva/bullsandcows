@@ -17,8 +17,28 @@ function successStartGame(data) {
     location.href = '/game/' + data;
 }
 
-function dashboard() {
-    location.href = "/";
+function showDashboard() {
+    let users;
+    $(document).ready(function () {
+        users = $('#users').DataTable({
+            "searching": false,
+            "ordering": false,
+            "info": false,
+            "paging": false,
+            "ajax": {
+                url: "/dashboard",
+                method: "GET",
+                "dataSrc": "",
+            },
+            "columns": [
+                {data: "username"},
+                {data: "numberOfFinishedGames"},
+                {data: "bestTimesPlayed"},
+                {data: "bestTimeInMinutes"}
+            ]
+        })
+
+    })
 }
 
 function register() {
@@ -33,7 +53,7 @@ function rules() {
     location.href = "/rules";
 }
 
-function getUserGames() {
+function showUserGames() {
     let games;
     $(document).ready(function () {
         games = $('#games').DataTable({

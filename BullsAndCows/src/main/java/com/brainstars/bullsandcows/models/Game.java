@@ -53,7 +53,7 @@ public class Game {
   private LocalDateTime lastModifiedDate;
 
   @Column(name = "finished")
-  private Boolean isFinished;
+  private boolean finished;
 
   @OneToMany(mappedBy = "game",
     cascade = CascadeType.ALL,

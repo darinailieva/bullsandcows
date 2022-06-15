@@ -8,6 +8,7 @@ import javax.persistence.EntityNotFoundException;
 
 import com.brainstars.bullsandcows.models.Attempt;
 import com.brainstars.bullsandcows.models.Game;
+import com.brainstars.bullsandcows.models.dtos.UsersResponse;
 import com.brainstars.bullsandcows.repositories.AttemptRepository;
 import com.brainstars.bullsandcows.repositories.GameRepository;
 
@@ -45,7 +46,7 @@ public class GameServiceImpl implements GameService {
     int cows = 0;
     if (Objects.equals(numberToGuess, currentNumber)) {
       bulls = 4;
-      game.setIsFinished(true);
+      game.setFinished(true);
     } else {
       for (int i = 0; i < numberToGuess.length(); i++) {
         for (int j = 0; j < currentNumber.length(); j++) {
@@ -69,7 +70,7 @@ public class GameServiceImpl implements GameService {
   }
 
   @Override
-  public List<Object[]> findAllByMinTimesPlayedAndMinDateDifference() {
+  public List<UsersResponse> findAllByMinTimesPlayedAndMinDateDifference() {
     return gameRepository.findAllByMinTimesPlayedAndMinDateDifference();
   }
 
