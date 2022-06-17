@@ -25,5 +25,5 @@ public class User {
   String password;
 
   @Column(name = "enabled")
-  boolean isEnabled;
+  Boolean isEnabled;
 }

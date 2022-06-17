@@ -1,5 +1,6 @@
 package com.brainstars.bullsandcows.services;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
@@ -28,18 +29,17 @@ public class GameServiceImpl implements GameService {
 
   @Override
   public Game startGame(String username) {
-    int number = getRandomNumber();
-    String strNumber = String.format("%04d", number);
+    String numberToGuess = getRandomNumber();
     Game game = new Game();
-    game.setNumberToGuess(strNumber);
+    game.setNumberToGuess(numberToGuess);
     game.setUsername(username);
+    game.setFinished(false);
     return gameRepository.save(game);
   }
 
   @Override
   public void guessNumber(int gameId, Attempt attempt) {
     Game game = getById(gameId);
-
     String numberToGuess = game.getNumberToGuess();
     String currentNumber = attempt.getCurrentNumber();
     int bulls = 0;
@@ -84,30 +84,19 @@ public class GameServiceImpl implements GameService {
     return gameRepository.getAllUserGames(username);
   }
 
-
-  private int getRandomNumber() {
-    int num1 = getRandomDigit();
-    int num2 = getRandomDigit();
-    while (num1 == num2) {
-      num2 = getRandomDigit();
-    }
-
-    int num3 = getRandomDigit();
-    while (num3 == num1 || num3 == num2) {
-      num3 = getRandomDigit();
-    }
-
-    int num4 = getRandomDigit();
-    while (num4 == num1 || num4 == num2 || num4 == num3) {
-      num4 = getRandomDigit();
-    }
-
-    return num1 * 1000 + num2 * 100 + num3 * 10 + num4;
-  }
-
-  private int getRandomDigit() {
+  private String getRandomNumber() {
     Random random = new Random();
-    return random.nextInt(10);
+    int randomNumberOrigin = 0;
+    int randomNumberBound = 10;
+    int size = 4;
+    int[] unique = random.ints(randomNumberOrigin, randomNumberBound)
+      .distinct()
+      .limit(size)
+      .toArray();
+    return Arrays.toString(unique)
+      .replace("[", "")
+      .replace("]", "")
+      .replace(", ", "");
   }
 
   private boolean isCow(String numberToGuess, String currentNumber, int i, int j) {
@@ -117,6 +106,5 @@ public class GameServiceImpl implements GameService {
   private boolean isBull(String numberToGuess, String currentNumber, int i, int j) {
     return i == j && isCow(numberToGuess, currentNumber, i, j);
   }
-
 
 }

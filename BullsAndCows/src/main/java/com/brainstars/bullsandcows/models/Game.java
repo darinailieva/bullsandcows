@@ -33,10 +33,10 @@ public class Game {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "game_id")
-  private int gameId;
+  private Integer gameId;
 
   @Column(name = "times_played")
-  private int timesPlayed;
+  private Integer timesPlayed;
 
   @Column(name = "number_to_guess")
   private String numberToGuess;
@@ -53,7 +53,7 @@ public class Game {
   private LocalDateTime lastModifiedDate;
 
   @Column(name = "finished")
-  private boolean finished;
+  private Boolean finished;
 
   @OneToMany(mappedBy = "game",
     cascade = CascadeType.ALL,

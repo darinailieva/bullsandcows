@@ -27,13 +27,13 @@ public class Attempt {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "attempt_id")
-  private int attemptId;
+  private Integer attemptId;
 
   @Column(name = "bulls")
-  private int bulls;
+  private Integer bulls;
 
   @Column(name = "cows")
-  private int cows;
+  private Integer cows;
 
   @Column(name = "current_number")
   private String currentNumber;

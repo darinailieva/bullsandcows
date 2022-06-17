@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
   public void createUser(User user) {
     String encodedPassword = passwordEncoder.encode(user.getPassword());
     user.setPassword(encodedPassword);
-    user.setEnabled(true);
+    user.setIsEnabled(true);
     List<GrantedAuthority> authorities = AuthorityUtils.createAuthorityList("ROLE_USER");
     org.springframework.security.core.userdetails.User newUser =
       new org.springframework.security.core.userdetails.User(
