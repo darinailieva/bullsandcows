@@ -74,6 +74,10 @@ function showUserGames() {
                 {
                     data: "finished",
                     "render": function (data, type, row, meta) {
+                        console.log(data);
+                        console.log(type);
+                        console.log(row);
+                        console.log(meta);
                         if (data === true) {
                             return "<input type='button' class='badge-gradient-success' value='View'  id='viewBtn' />";
                         } else {
