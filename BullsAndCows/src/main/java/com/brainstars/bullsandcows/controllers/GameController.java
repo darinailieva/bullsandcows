@@ -13,6 +13,7 @@ import com.brainstars.bullsandcows.models.Game;
 import com.brainstars.bullsandcows.models.dtos.AttemptRequest;
 import com.brainstars.bullsandcows.models.dtos.GameResponse;
 import com.brainstars.bullsandcows.models.dtos.UserGameResponse;
+import com.brainstars.bullsandcows.models.dtos.UsersResponse;
 import com.brainstars.bullsandcows.services.GameService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,13 @@ public class GameController {
   @Autowired
   public GameController(GameService gameService) {
     this.gameService = gameService;
+  }
+
+  @GetMapping("/dashboard")
+  public ResponseEntity<List<UsersResponse>> showDashboardPage() {
+    List<UsersResponse> usersResponses =
+      gameService.findAllByMinTimesPlayedAndMinDateDifference();
+    return new ResponseEntity<>(usersResponses, HttpStatus.OK);
   }
 
   @GetMapping("/games")

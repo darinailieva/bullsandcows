@@ -9,7 +9,6 @@ import com.brainstars.bullsandcows.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -18,10 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 
   @Autowired public RegisterController(UserService userService) {
     this.userService = userService;
-  }
-
-  @GetMapping("/register") public String showRegistrationPage() {
-    return "register";
   }
 
   @PostMapping(path = "/register")
