@@ -73,11 +73,7 @@ function showUserGames() {
                 {data: "lastModifiedDate"},
                 {
                     data: "finished",
-                    "render": function (data, type, row, meta) {
-                        console.log(data);
-                        console.log(type);
-                        console.log(row);
-                        console.log(meta);
+                    "render": function (data, type, row, meta){
                         if (data === true) {
                             return "<input type='button' class='badge-gradient-success' value='View'  id='viewBtn' />";
                         } else {
@@ -135,23 +131,30 @@ function successShowGame(response) {
                 + "<td>" + attempt.cows + "</td>"
                 + "<td>" + attempt.currentNumber + "</td>"
                 + "</tr>")
-
         }
     )
-
 }
 
 function guessNumber(gameId) {
     var attempt = {};
     attempt["currentNumber"] = $("#currentNumber").val();
-
+    console.log(attempt);
     $.ajax({
         method: "PUT",
         url: 'game/' + gameId,
         contentType: "application/json",
         data: JSON.stringify(attempt),
-        success: function (gameId) {
-            getGame(gameId);
+        success: function () {
+            showGame(gameId);
+        },
+        error: function (error){
+       console.log(error.responseJSON.message);
+       // $('.error').empty();
+        $('.error').append(error.responseJSON.message);
         }
     });
+}
+
+function showGame(gameId){
+location.href = '/game/' + gameId;
 }

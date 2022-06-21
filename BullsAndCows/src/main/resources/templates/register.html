@@ -21,21 +21,22 @@
                         <form id="registration" method="post">
                             <div class="form-group">
                                 <label>Username</label>
-                                <input type="text" id="username" required  class="form-control p_input"/>
+                                <input type="text" id="username" required
+                                       class="form-control p_input"/>
                             </div>
                             <div class="form-group">
                                 <label>Password</label>
-                                <input type="password" id="password" required class="form-control p_input"/>
+                                <input type="password" id="password" required
+                                       class="form-control p_input"/>
                             </div>
                             <div class="text-center">
-                                <input type="submit" class="btn btn-primary btn-block enter-btn" value="Submit"/>
+                                <input type="submit" class="btn btn-primary btn-block enter-btn"
+                                       value="Submit"/>
                             </div>
-
-<!--                            <div class="forgot-pass" th:if="${#fields.hasErrors('*')}">-->
-<!--                                <p th:each="err : ${#fields.errors('*')}" th:text="${err}"-->
-<!--                                   class="error"/>-->
-<!--                            </div>-->
+                            <br/>
+                            <div class="error"></div>
                         </form>
+
                         <p class="sign-up text-center">Already have an Account?<a
                                 class="nav-link"
                                 th:href="@{/login}">Login</a></p>

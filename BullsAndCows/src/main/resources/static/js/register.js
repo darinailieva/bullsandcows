@@ -17,6 +17,10 @@ function register() {
         data: JSON.stringify(user),
         success: function () {
             successRegister();
+        },
+        error: function (error){
+        $('.error').empty();
+        $('.error').append(error.responseJSON.message);
         }
     });
 }
