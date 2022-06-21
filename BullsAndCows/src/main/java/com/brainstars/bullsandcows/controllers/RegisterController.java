@@ -8,11 +8,12 @@ import com.brainstars.bullsandcows.services.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller public class RegisterController {
+@RestController
+public class RegisterController {
   private final UserService userService;
 
   @Autowired public RegisterController(UserService userService) {
@@ -23,6 +24,6 @@ import org.springframework.web.bind.annotation.RequestBody;
   public ResponseEntity<String> registerUser(@RequestBody UserDTO userDTO) {
     User user = convertToUser(userDTO);
     userService.createUser(user);
-    return ResponseEntity.ok("User successfully registered.");
+    return ResponseEntity.ok(String.format("User with username '%s' successfully registered.", user.getUsername()));
   }
 }
