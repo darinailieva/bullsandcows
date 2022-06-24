@@ -28,7 +28,7 @@ public class GameMapper {
       userGamesResponse.setTimesPlayed(game.getTimesPlayed());
       userGamesResponse.setCreatedDate(game.getCreatedDate());
       userGamesResponse.setLastModifiedDate(game.getLastModifiedDate());
-      userGamesResponse.setIsFinished(game.getFinished());
+      userGamesResponse.setFinished(game.getFinished());
       userGamesResponses.add(userGamesResponse);
     }
     return userGamesResponses;

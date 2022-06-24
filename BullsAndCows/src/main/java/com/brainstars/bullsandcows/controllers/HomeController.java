@@ -24,4 +24,14 @@ public class HomeController {
   public String showLogin() {
     return "login";
   }
+
+  @GetMapping("/games/{gameId}")
+  public String showGame(){
+    return "game";
+  }
+
+  @GetMapping("/my-games")
+  public String showGames(){
+    return "games";
+  }
 }

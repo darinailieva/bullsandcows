@@ -46,14 +46,14 @@ public class GameController {
     }
 
     @GetMapping("/game/{gameId}")
-    public ResponseEntity<GameResponse> showGame(@PathVariable int gameId) {
+    public ResponseEntity<GameResponse> getGame(@PathVariable Integer gameId) {
         Game game = gameService.getById(gameId);
         GameResponse response = convertToGameResponse(game);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PutMapping("/game/{gameId}")
-    public ResponseEntity<GameResponse> guessNumber(@PathVariable int gameId, @RequestBody AttemptRequest request) {
+    public ResponseEntity<GameResponse> guessNumber(@PathVariable Integer gameId, @RequestBody AttemptRequest request) {
         Game game = gameService.getById(gameId);
         GameResponse response = convertToGameResponse(game);
         Attempt attempt = convertToAttempt(request);

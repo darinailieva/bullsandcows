@@ -22,7 +22,7 @@
         <div class="row row-offcanvas row-offcanvas-right">
             <nav class="sidebar sidebar-offcanvas" id="sidebar">
                 <ul class="nav">
-                    <li class="nav-item" sec:authorize="!isAuthenticated()">
+                    <li class="nav-item">
                         <a class="nav-link">
                             <span class="menu-title" onclick="showDashboard()">Dashboard</span>
                             <i class="mdi mdi-home menu-icon"></i>
@@ -97,62 +97,8 @@
                 </div>
             </div>
 
-            <!--game-->
-            <div class="content-wrapper" sec:authorize="isAuthenticated()">
-                <div class="row">
-                    <div class="col-12 grid-margin">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title" id="gameId"></h4>
-                                <div class="table-responsive">
-                                    <table id="game" class="table table-bordered">
-                                        <thead>
-                                        <tr class="table-warning">
-                                            <th>Bulls
-                                            </th>
-                                            <th>Cows
-                                            </th>
-                                            <th>Guessed numbers
-                                            </th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card" id="notFinished">
-                    <div class="card-body">
-                        <form class="forms-sample" method="PUT" id="attempt">
-                            <div class="form-group">
-                                <input type="text" id="currentNumber" placeholder="Number"/>
-                            </div>
-                            <input type="submit" class="btn btn-info mr-2" value="Guess"/>
-                            <div class="error"></div>
-                        </form>
-
-                    </div>
-                </div>
-                <div class="card" id="finished">
-                    <div class="card-body">
-                        <div class="tenor-gif-embed" data-postid="25183759" data-share-method="host"
-                             data-aspect-ratio="1.45455" data-width="100%"><a
-                                href="https://tenor.com/view/whoa-whoa-gif-gif-25183759">Whoa Whoa
-                            Gif GIF</a>from <a href="https://tenor.com/search/whoa-gifs">Whoa
-                            GIFs</a></div>
-                        <script type="text/javascript" async
-                                src="https://tenor.com/embed.js"></script>
-                        <script type="text/javascript" async
-                                src="https://tenor.com/embed.js"></script>
-                    </div>
-                </div>
-            </div>
-
             <!--players-->
-            <div class="content-wrapper" sec:authorize="!isAuthenticated()">
+            <div class="content-wrapper">
                 <div class="animated fadeIn">
                     <div class="row">
                         <div class="col-md-12">

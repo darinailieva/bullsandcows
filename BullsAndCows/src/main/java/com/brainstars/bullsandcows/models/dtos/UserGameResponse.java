@@ -12,5 +12,5 @@ public class UserGameResponse {
   private Integer timesPlayed;
   private LocalDateTime createdDate;
   private LocalDateTime lastModifiedDate;
-  Boolean isFinished;
+  Boolean finished;
 }
