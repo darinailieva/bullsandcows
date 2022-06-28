@@ -19,11 +19,11 @@ import lombok.Setter;
 public class User {
   @Id
   @Column(name = "username")
-  String username;
+  private String username;
 
   @Column(name = "password")
-  String password;
+  private String password;
 
   @Column(name = "enabled")
-  Boolean isEnabled;
+  private Boolean isEnabled;
 }

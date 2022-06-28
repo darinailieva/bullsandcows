@@ -1,12 +1,11 @@
 package com.brainstars.bullsandcows.models.dtos;
 
-
 public interface UsersResponse {
-  String getUsername();
+    String getUsername();
 
-  Integer getNumberOfFinishedGames();
+    Integer getNumberOfFinishedGames();
 
-  Integer getBestTimesPlayed();
+    Integer getBestTimesPlayed();
 
-  Integer getBestTimeInMinutes();
+    Integer getBestTimeInMinutes();
 }

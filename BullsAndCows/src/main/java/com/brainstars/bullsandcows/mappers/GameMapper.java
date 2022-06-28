@@ -21,7 +21,7 @@ public class GameMapper {
   }
 
   public static List<UserGameResponse> convertToGameResponses(List<Game> userGames) {
-    List<UserGameResponse> userGamesResponses = new ArrayList<>();
+    List<UserGameResponse> gamesResponses = new ArrayList<>();
     for (Game game : userGames) {
       var userGamesResponse = new UserGameResponse();
       userGamesResponse.setGameId(game.getGameId());
@@ -29,9 +29,9 @@ public class GameMapper {
       userGamesResponse.setCreatedDate(game.getCreatedDate());
       userGamesResponse.setLastModifiedDate(game.getLastModifiedDate());
       userGamesResponse.setFinished(game.getFinished());
-      userGamesResponses.add(userGamesResponse);
+      gamesResponses.add(userGamesResponse);
     }
-    return userGamesResponses;
+    return gamesResponses;
   }
 
   public static GameResponse convertToGameResponse(Game game) {

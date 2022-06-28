@@ -16,7 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class RegisterController {
   private final UserService userService;
 
-  @Autowired public RegisterController(UserService userService) {
+  @Autowired
+  public RegisterController(UserService userService) {
     this.userService = userService;
   }
 
@@ -24,6 +25,8 @@ public class RegisterController {
   public ResponseEntity<String> registerUser(@RequestBody UserDTO userDTO) {
     User user = convertToUser(userDTO);
     userService.createUser(user);
-    return ResponseEntity.ok(String.format("User with username '%s' successfully registered.", user.getUsername()));
+    return ResponseEntity.ok(
+      String.format("User '%s' successfully registered.",
+        user.getUsername()));
   }
 }

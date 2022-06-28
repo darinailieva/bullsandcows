@@ -41,5 +41,5 @@ public class Attempt {
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "game_id")
   @JsonIgnore
-  Game game;
+  private Game game;
 }

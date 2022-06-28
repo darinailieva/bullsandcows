@@ -26,12 +26,12 @@ public class HomeController {
   }
 
   @GetMapping("/games/{gameId}")
-  public String showGame(){
+  public String showGame() {
     return "game";
   }
 
   @GetMapping("/my-games")
-  public String showUserGames(){
+  public String showUserGames() {
     return "games";
   }
 }

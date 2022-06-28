@@ -9,9 +9,9 @@ import com.brainstars.bullsandcows.models.dtos.UsersResponse;
 public interface GameService {
   Game startGame(String username);
 
-  void guessNumber(int gameId, Attempt attempt);
+  void guessNumber(Integer gameId, Attempt attempt);
 
-  Game getById(int gameId);
+  Game getById(Integer gameId);
 
   List<Game> getAllUserGames(String username);
 

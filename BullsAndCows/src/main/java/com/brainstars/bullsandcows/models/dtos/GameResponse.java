@@ -10,5 +10,5 @@ import lombok.Setter;
 public class GameResponse {
   private Integer gameId;
   private Boolean finished;
-  List<AttemptResponse> attempts;
+  private List<AttemptResponse> attempts;
 }

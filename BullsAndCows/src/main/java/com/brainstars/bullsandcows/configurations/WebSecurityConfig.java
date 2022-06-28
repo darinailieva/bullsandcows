@@ -19,7 +19,7 @@ import org.springframework.security.provisioning.UserDetailsManager;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-  private DataSource securityDataSource;
+  private final DataSource securityDataSource;
 
   @Autowired
   public WebSecurityConfig(DataSource securityDataSource) {
@@ -57,9 +57,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     return jdbcUserDetailsManager;
   }
 
-
   @Bean
-  ServletRegistrationBean h2servletRegistration() {
+  public ServletRegistrationBean h2servletRegistration() {
     ServletRegistrationBean registrationBean = new ServletRegistrationBean(new WebServlet());
     registrationBean.addUrlMappings("/console/*");
     return registrationBean;

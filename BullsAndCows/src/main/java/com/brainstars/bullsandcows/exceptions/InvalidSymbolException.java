@@ -1,7 +1,8 @@
 package com.brainstars.bullsandcows.exceptions;
 
-import lombok.Getter;
 import org.springframework.http.HttpStatus;
+
+import lombok.Getter;
 
 @Getter
 public class InvalidSymbolException extends RuntimeException {
