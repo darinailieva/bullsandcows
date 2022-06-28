@@ -2,7 +2,6 @@ package com.brainstars.bullsandcows.services;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 import java.util.Random;
 
 import com.brainstars.bullsandcows.exceptions.DuplicateDigitException;
@@ -103,23 +102,19 @@ public class GameServiceImpl implements GameService {
     int[] bullsCows = new int[ARRAY_LENGTH];
     int bulls = ZERO_INDEX;
     int cows = ZERO_INDEX;
-//    if (Objects.equals(numberToGuess, currentNumber)) {
-//      bulls = MAX_DIGITS;
-//    } else {
-      for (int i = ZERO_INDEX; i < numberToGuess.length(); i++) {
-        for (int j = ZERO_INDEX; j < currentNumber.length(); j++) {
-          if (isBull(numberToGuess, currentNumber, i, j)) {
-            bulls++;
-            break;
-          }
-          if (isCow(numberToGuess, currentNumber, i, j)) {
-            cows++;
-            break;
-          }
-//        }
+    for (int i = ZERO_INDEX; i < numberToGuess.length(); i++) {
+      for (int j = ZERO_INDEX; j < currentNumber.length(); j++) {
+        if (isBull(numberToGuess, currentNumber, i, j)) {
+          bulls++;
+          break;
+        }
+        if (isCow(numberToGuess, currentNumber, i, j)) {
+          cows++;
+          break;
+        }
       }
     }
-    bullsCows[ZERO_INDEX]= bulls;
+    bullsCows[ZERO_INDEX] = bulls;
     bullsCows[FIRST_INDEX] = cows;
     return bullsCows;
   }
