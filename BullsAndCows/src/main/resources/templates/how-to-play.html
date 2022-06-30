@@ -1,85 +1,118 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+  lang="en"
+>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
     <title>Bulls and Cows</title>
-    <link rel="stylesheet" href="/css/style.css">
-</head>
-<body>
-<div class="container-scroller">
-    <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
-        <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-            <a class="navbar-brand brand-logo" th:href="@{/}">BULLS AND COWS</a>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" charset="utf8"
+            src="https://cdn.datatables.net/1.11.1/js/jquery.dataTables.js"></script>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <div class="container-scroller">
+      <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+        <div
+          class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center"
+        >
+          <a class="navbar-brand brand-logo" th:href="@{/}">BULLS AND COWS</a>
         </div>
-    </nav>
-    <div class="container-fluid page-body-wrapper">
+      </nav>
+      <div class="container-fluid page-body-wrapper">
         <div class="row row-offcanvas row-offcanvas-right">
-            <nav class="sidebar sidebar-offcanvas" id="sidebar">
-                <ul class="nav">
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/}">
-                            <span class="menu-title">Dashboard</span>
-                            <i class="mdi mdi-home menu-icon"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item" sec:authorize="isAuthenticated()">
-                        <a class="nav-link" th:href="@{/games}">
-                            <span class="menu-title">My games</span>
-                            <i class="mdi mdi-home menu-icon"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item" th:action="@{/logout}" sec:authorize="isAuthenticated()" method="get">
-                        <a class="nav-link" th:href="logout">
-                            <span class="menu-title">Logout</span>
-                            <i class="mdi mdi-home menu-icon"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item" sec:authorize="!isAuthenticated()">
-                        <a class="nav-link" th:href="@{/register}">
-                            <span class="menu-title">Register</span>
-                            <i class="mdi mdi-home menu-icon"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item" sec:authorize="!isAuthenticated()">
-                        <a class="nav-link" th:href="@{/login}">
-                            <span class="menu-title">Login</span>
-                            <i class="mdi mdi-home menu-icon"></i>
-                        </a>
-                    </li>
-                </ul>
-
-                <div class="wrapper upgrade-button">
-                    <a th:action="@{/game}" sec:authorize="isAuthenticated()" method="get" th:href="@{/game}"
-                       class="btn btn-lg btn-block purchase-button">Start a new game</a>
-                </div>
-                <div class="sidebar-progress" sec:authorize="!isAuthenticated()">
-                    <p>Welcome to Bulls and Cows</p>
-                </div>
-
-            </nav>
-            <div class="content-wrapper">
-                <div class="row">
-                    <div class="col-12 grid-margin">
-                        <div class="card">
-                            <div class="card-body">
-                                <h2 class="card-title">In order to start playing Bulls and Cows, you need to follow
-                                    those steps: </h2>
-                                <h4>1. Register</h4>
-                                <h4>2. Login</h4>
-                                <h4>3. Start a new game</h4>
-                                <h4>4. Guess the number</h4>
-                                <h4>5. Check the game history in order to see how many bulls and cows you have</h4>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+          <nav class="sidebar sidebar-offcanvas" id="sidebar">
+            <ul class="nav">
+              <li class="nav-item">
+                <a class="nav-link" th:href="@{/}">
+                  <span class="menu-title">Dashboard</span>
+                  <i class="mdi mdi-home menu-icon"></i>
+                </a>
+              </li>
+              <li class="nav-item" sec:authorize="isAuthenticated()">
+                <a class="nav-link" th:href="@{/my-games}">
+                  <span class="menu-title">My games</span>
+                  <i class="mdi mdi-home menu-icon"></i>
+                </a>
+              </li>
+              <li
+                class="nav-item"
+                th:action="@{/logout}"
+                sec:authorize="isAuthenticated()"
+                method="get"
+              >
+                <a class="nav-link" th:href="logout">
+                  <span class="menu-title">Logout</span>
+                  <i class="mdi mdi-home menu-icon"></i>
+                </a>
+              </li>
+              <li class="nav-item" sec:authorize="!isAuthenticated()">
+                <a class="nav-link" th:href="@{/register}">
+                  <span class="menu-title">Register</span>
+                  <i class="mdi mdi-home menu-icon"></i>
+                </a>
+              </li>
+              <li class="nav-item" sec:authorize="!isAuthenticated()">
+                <a class="nav-link" th:href="@{/login}">
+                  <span class="menu-title">Login</span>
+                  <i class="mdi mdi-home menu-icon"></i>
+                </a>
+              </li>
+            </ul>
+            <div
+              class="sidebar-progress"
+              sec:authorize="isAuthenticated()"
+              hidden
+            >
+              <p
+                id="welcome"
+                th:text="'You are logged in as ' + ${#authentication.getPrincipal().getUsername()}"
+              ></p>
             </div>
-        </div>
-    </div>
-</div>
-</body>
-</html>
 
+            <div
+              class="wrapper upgrade-button"
+              sec:authorize="isAuthenticated()"
+            >
+              <input
+                type="button"
+                class="btn btn-lg btn-block purchase-button"
+                value="Start a new game"
+                onclick="startNewGame()"
+              />
+            </div>
+          </nav>
+          <div class="content-wrapper">
+            <div class="row">
+              <div class="col-12 grid-margin">
+                <div class="card">
+                  <div class="card-body">
+                    <h2 class="card-title">
+                      In order to start playing Bulls and Cows, you need to
+                      follow those steps:
+                    </h2>
+                    <h4>1. Register</h4>
+                    <h4>2. Login</h4>
+                    <h4>3. Start a new game</h4>
+                    <h4>4. Guess the number</h4>
+                    <h4>
+                      5. Check the game history in order to see how many bulls
+                      and cows you have
+                    </h4>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="/js/index.js"></script>
+  </body>
+</html>

@@ -1,21 +1,26 @@
 package com.brainstars.bullsandcows.models;
 
-import com.brainstars.bullsandcows.repositories.AttemptRepository;
-import com.fasterxml.jackson.annotation.JsonFormat;
+import java.time.LocalDateTime;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
-import javax.persistence.*;
-import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.List;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
@@ -25,42 +30,38 @@ import java.util.List;
 @Getter
 @Setter
 public class Game {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "game_id")
-    private int gameId;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "game_id")
+  private Integer gameId;
 
-    @Column(name = "times_played")
-    private int timesPlayed;
+  @Column(name = "times_played")
+  private Integer timesPlayed;
 
-    @Column (name = "number_to_guess")
-    private String numberToGuess;
+  @Column(name = "number_to_guess")
+  private String numberToGuess;
 
-    @Column (name = "username")
-    private String username;
+  @Column(name = "username")
+  private String username;
 
-    @CreationTimestamp
-   // @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "created_date")
-    //@JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDateTime createdDate;
+  @CreationTimestamp
+  @Column(name = "created_date")
+  private LocalDateTime createdDate;
 
-    @UpdateTimestamp
-  //  @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "last_modified_date")
-   // @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDateTime lastModifiedDate;
+  @UpdateTimestamp
+  @Column(name = "last_modified_date")
+  private LocalDateTime lastModifiedDate;
 
-    @Column (name = "finished")
-    boolean isFinished;
+  @Column(name = "finished")
+  private Boolean finished;
 
-    @OneToMany(mappedBy = "game",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true)
-    List<Attempt> attempts;
+  @OneToMany(mappedBy = "game",
+    cascade = CascadeType.ALL,
+    orphanRemoval = true)
+  private List<Attempt> attempts;
 
-    public void addAttempt(Attempt attempt) {
-        attempts.add(attempt);
-        attempt.setGame(this);
-    }
+  public void addAttempt(Attempt attempt) {
+    attempts.add(attempt);
+    attempt.setGame(this);
+  }
 }

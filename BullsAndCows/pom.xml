@@ -62,6 +62,11 @@
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.3.6</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -71,7 +76,8 @@
                 <artifactId>liquibase-maven-plugin</artifactId>
                 <version>3.4.1</version>
                 <configuration>
-                    <propertyFile>src/main/resources/liquibase.properties</propertyFile>
+                    <propertyFile>src/main/resources/application.properties</propertyFile>
+                    <propertyFileWillOverride>true</propertyFileWillOverride>
                 </configuration>
             </plugin>
             <plugin>

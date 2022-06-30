@@ -19,7 +19,7 @@
     ></script>
     <link rel="stylesheet" href="/css/style.css" />
   </head>
-  <body>
+  <body onload="showUserGames()">
     <div class="container-scroller">
       <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div
@@ -32,25 +32,48 @@
         <div class="row row-offcanvas row-offcanvas-right">
           <nav class="sidebar sidebar-offcanvas" id="sidebar">
             <ul class="nav">
+                <li class="nav-item">
+                  <a class="nav-link" th:href="@{/}">
+                    <span class="menu-title">Dashboard</span>
+                    <i class="mdi mdi-home menu-icon"></i>
+                  </a>
+                </li>
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                  <a class="nav-link" th:href="@{/my-games}">
+                    <span class="menu-title">My games</span>
+                    <i class="mdi mdi-home menu-icon"></i>
+                  </a>
+                </li>
+                <li
+                  class="nav-item"
+                  th:action="@{/logout}"
+                  sec:authorize="isAuthenticated()"
+                  method="get"
+                >
+                  <a class="nav-link" th:href="logout">
+                    <span class="menu-title">Logout</span>
+                    <i class="mdi mdi-home menu-icon"></i>
+                  </a>
+                </li>
+                <li class="nav-item" sec:authorize="!isAuthenticated()">
+                  <a class="nav-link" th:href="@{/register}">
+                    <span class="menu-title">Register</span>
+                    <i class="mdi mdi-home menu-icon"></i>
+                  </a>
+                </li>
+                <li class="nav-item" sec:authorize="!isAuthenticated()">
+                  <a class="nav-link" th:href="@{/login}">
+                    <span class="menu-title">Login</span>
+                    <i class="mdi mdi-home menu-icon"></i>
+                  </a>
+                </li>
               <li class="nav-item">
-                <a class="nav-link" th:href="@{/}">
-                  <span class="menu-title">Dashboard</span>
+                <a class="nav-link">
+                  <span class="menu-title" onclick="rules()">How to play</span>
                   <i class="mdi mdi-home menu-icon"></i>
                 </a>
               </li>
-              <li class="nav-item" sec:authorize="isAuthenticated()">
-                <a class="nav-link" th:href="@{/my-games}">
-                  <span class="menu-title">My games</span>
-                  <i class="mdi mdi-home menu-icon"></i>
-                </a>
-              </li>
-              <li class="nav-item">
-              <a class="nav-link">
-                <span class="menu-title" onclick="rules()">How to play</span>
-                <i class="mdi mdi-home menu-icon"></i>
-              </a>
-            </li>
-          </ul>
+            </ul>
             <div
               class="sidebar-progress"
               sec:authorize="isAuthenticated()"
@@ -61,6 +84,7 @@
                 th:text="'You are logged in as ' + ${#authentication.getPrincipal().getUsername()}"
               ></p>
             </div>
+
             <div
               class="wrapper upgrade-button"
               sec:authorize="isAuthenticated()"
@@ -73,20 +97,22 @@
               />
             </div>
           </nav>
-          <!-- game -->
+          <!--games-->
           <div class="content-wrapper" sec:authorize="isAuthenticated()">
             <div class="row">
               <div class="col-12 grid-margin">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title" id="gameId"></h4>
+                    <h4 class="card-title">My games</h4>
                     <div class="table-responsive">
-                      <table id="game" class="table table-bordered">
+                      <table id="games" class="table">
                         <thead>
-                          <tr class="table-warning">
-                            <th>Bulls</th>
-                            <th>Cows</th>
-                            <th>Guessed numbers</th>
+                          <tr>
+                            <th>Game id</th>
+                            <th>Times Played</th>
+                            <th>Start date</th>
+                            <th>Finish date</th>
+                            <th>Action</th>
                           </tr>
                         </thead>
                         <tbody></tbody>
@@ -96,56 +122,11 @@
                 </div>
               </div>
             </div>
-            <div class="card" id="notFinished">
-              <div class="card-body">
-                <form class="forms-sample" method="PUT" id="attempt">
-                  <div class="form-group">
-                    <input
-                      type="text"
-                      id="currentNumber"
-                      placeholder="Number"
-                    />
-                  </div>
-                  <input
-                    type="submit"
-                    class="btn btn-info mr-2"
-                    value="Guess"
-                  />
-                  <div class="error"></div>
-                </form>
-              </div>
-            </div>
-            <div class="card" id="finished">
-              <div class="card-body">
-                <div
-                  class="tenor-gif-embed"
-                  data-postid="25183759"
-                  data-share-method="host"
-                  data-aspect-ratio="1.45455"
-                  data-width="100%"
-                >
-                  <a href="https://tenor.com/view/whoa-whoa-gif-gif-25183759"
-                    >Whoa Whoa Gif GIF</a
-                  >from
-                  <a href="https://tenor.com/search/whoa-gifs">Whoa GIFs</a>
-                </div>
-                <script
-                  type="text/javascript"
-                  async
-                  src="https://tenor.com/embed.js"
-                ></script>
-                <script
-                  type="text/javascript"
-                  async
-                  src="https://tenor.com/embed.js"
-                ></script>
-              </div>
-            </div>
           </div>
         </div>
       </div>
     </div>
     <script src="/js/index.js"></script>
-    <script src="/js/game.js"></script>
+    <script src="/js/games.js"></script>
   </body>
 </html>

@@ -1,17 +1,11 @@
 package com.brainstars.bullsandcows.models.dtos;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+public interface UsersResponse {
+    String getUsername();
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
-@Setter
-public class UsersResponse {
-    private String username;
-    private int numberOfFinishedGames;
-    private int bestTimesPlayed;
-    private int bestTime;
+    Integer getNumberOfFinishedGames();
+
+    Integer getBestTimesPlayed();
+
+    Integer getBestTimeInMinutes();
 }

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet author="darina" id="1">
+        <createTable tableName="attempts">
+            <column name="attempt_id" type="INTEGER" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" unique="true"/>
+            </column>
+            <column name="bulls" type="INTEGER"/>
+            <column name="cows" type="INTEGER"/>
+            <column name="current_number" type="VARCHAR(4)"/>
+            <column name="game_id" type="INTEGER">
+                <constraints validateForeignKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
