@@ -10,6 +10,7 @@ import com.brainstars.bullsandcows.exceptions.InvalidLengthException;
 import com.brainstars.bullsandcows.exceptions.InvalidSymbolException;
 import com.brainstars.bullsandcows.models.Attempt;
 import com.brainstars.bullsandcows.models.Game;
+import com.brainstars.bullsandcows.models.dtos.BullsCowsCounter;
 import com.brainstars.bullsandcows.models.dtos.UsersResponse;
 import com.brainstars.bullsandcows.repositories.AttemptRepository;
 import com.brainstars.bullsandcows.repositories.GameRepository;
@@ -53,9 +54,14 @@ public class GameServiceImpl implements GameService {
     Game game = getById(gameId);
     String numberToGuess = game.getNumberToGuess();
 
-    int[] bullsCows = getBullsAndCows(numberToGuess, currentNumber);
-    int bulls = bullsCows[ZERO_INDEX];
-    int cows = bullsCows[FIRST_INDEX];
+    //    int[] bullsCows = getBullsAndCows(numberToGuess, currentNumber);
+    //    int bulls = bullsCows[ZERO_INDEX];
+    //    int cows = bullsCows[FIRST_INDEX];
+
+    BullsCowsCounter bullsCows = getBullsAndCows(numberToGuess, currentNumber);
+    int bulls = bullsCows.getBulls();
+    int cows = bullsCows.getCows();
+
     if (bulls == MAX_DIGITS) {
       game.setFinished(true);
     }
@@ -98,36 +104,16 @@ public class GameServiceImpl implements GameService {
       .replace(", ", "");
   }
 
-  private int[] getBullsAndCows(String numberToGuess, String currentNumber) {
-    int[] bullsCows = new int[ARRAY_LENGTH];
-    int bulls = ZERO_INDEX;
-    int cows = ZERO_INDEX;
+  private BullsCowsCounter getBullsAndCows(String numberToGuess, String currentNumber) {
+    BullsCowsCounter bullsCows = new BullsCowsCounter();
     for (int i = ZERO_INDEX; i < numberToGuess.length(); i++) {
-      for (int j = ZERO_INDEX; j < currentNumber.length(); j++) {
-        if (isBull(numberToGuess, currentNumber, i, j)) {
-          bulls++;
-          break;
-        }
-        if (isCow(numberToGuess, currentNumber, i, j)) {
-          cows++;
-          break;
-        }
+      if (numberToGuess.charAt(i) == currentNumber.charAt(i)) {
+        bullsCows.addBulls();
+      } else if (numberToGuess.contains(String.valueOf(currentNumber.charAt(i)))) {
+        bullsCows.addCows();
       }
     }
-    bullsCows[ZERO_INDEX] = bulls;
-    bullsCows[FIRST_INDEX] = cows;
     return bullsCows;
-  }
-
-  private boolean isCow(String numberToGuess, String currentNumber,
-    int currentNumberIndex, int numberToGuessIndex) {
-    return numberToGuess.charAt(currentNumberIndex) == currentNumber.charAt(numberToGuessIndex);
-  }
-
-  private boolean isBull(String numberToGuess, String currentNumber,
-    int currentNumberIndex, int numberToGuessIndex) {
-    return currentNumberIndex == numberToGuessIndex && isCow(numberToGuess, currentNumber,
-      currentNumberIndex, numberToGuessIndex);
   }
 
   private void validateCurrentNumberLength(String currentNumber) {
