@@ -54,10 +54,6 @@ public class GameServiceImpl implements GameService {
     Game game = getById(gameId);
     String numberToGuess = game.getNumberToGuess();
 
-    //    int[] bullsCows = getBullsAndCows(numberToGuess, currentNumber);
-    //    int bulls = bullsCows[ZERO_INDEX];
-    //    int cows = bullsCows[FIRST_INDEX];
-
     BullsCowsCounter bullsCows = getBullsAndCows(numberToGuess, currentNumber);
     int bulls = bullsCows.getBulls();
     int cows = bullsCows.getCows();
