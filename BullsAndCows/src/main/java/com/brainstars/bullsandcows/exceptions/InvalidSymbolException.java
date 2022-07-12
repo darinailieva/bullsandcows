@@ -9,6 +9,6 @@ public class InvalidSymbolException extends RuntimeException {
     private final HttpStatus status = HttpStatus.UNPROCESSABLE_ENTITY;
 
     public InvalidSymbolException() {
-        super("The guessed number should contains only digits.");
+        super("The guessed number should contain only digits.");
     }
 }
