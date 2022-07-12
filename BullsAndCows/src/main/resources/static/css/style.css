@@ -13578,6 +13578,7 @@ button.close {
     background-clip: padding-box;
     border: 1px solid #e6ecf5;
     border-radius: 0.3rem;
+    color: #fa0053;
     outline: 0;
 }
 
@@ -20107,6 +20108,10 @@ dl li {
 
 .table.table-borderless tr, .table.table-borderless td, .table.table-borderless th {
     border: none;
+}
+
+.error {
+ color: #fa0053;
 }
 
 /*-------------------------------------------------------------------*/
