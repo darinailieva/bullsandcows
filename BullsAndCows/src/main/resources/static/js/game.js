@@ -18,18 +18,12 @@ function successShowGame(response) {
   } else {
     document.getElementById("notFinished").style.visibility = "visible";
     $(document).ready(function () {
-      $("#attempt").submit(function () {
+      $("#attempt").submit(function (e) {
+        e.preventDefault();
         guessNumber();
       });
     });
   }
-  if (response.finished === true) {
-    document.getElementById("finished").style.visibility = "visible";
-  } 
-  else {
-    document.getElementById("finished").style.visibility = "hidden";
-  }
-
   response.attempts.forEach((attempt) => {
     $("#game tbody").append(
       "<tr>" +
@@ -48,6 +42,7 @@ function successShowGame(response) {
 }
 
 function guessNumber() {
+  $(".error").empty();
   var attempt = {};
   attempt["currentNumber"] = $("#currentNumber").val();
   console.log(attempt);
@@ -56,16 +51,24 @@ function guessNumber() {
     url: "http://localhost:8080/game/" + gameId,
     contentType: "application/json",
     data: JSON.stringify(attempt),
-    success: function () {
-      showGame();
+    success: function (data) {
+      console.log(data.finished);
+      if (data.finished === true) {
+        showCongratulation();
+      } else {
+        showGame();
+      }
     },
     error: function (error) {
-      alert(error.responseJSON.message);
       $(".error").append(error.responseJSON.message);
     },
   });
 }
 
 function showGame() {
-  document.getElementById("finished").style.visibility = "visible";
+  location.href = "/games/" + gameId;
+}
+
+function showCongratulation() {
+  location.href = "/congratulation";
 }
