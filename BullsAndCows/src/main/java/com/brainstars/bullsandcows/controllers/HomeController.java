@@ -34,4 +34,10 @@ public class HomeController {
   public String showUserGames() {
     return "games";
   }
+
+  @GetMapping("/congratulation")
+  public String showCongratulation() {
+    return "congratulation";
+  }
+
 }

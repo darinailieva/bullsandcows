@@ -64,9 +64,9 @@ public class GameController {
   public ResponseEntity<GameResponse> guessNumber(@PathVariable Integer gameId,
     @RequestBody AttemptRequest request) {
     Game game = gameService.getById(gameId);
-    GameResponse response = convertToGameResponse(game);
     Attempt attempt = convertToAttempt(request);
     gameService.guessNumber(gameId, attempt);
+    GameResponse response = convertToGameResponse(game);
     return new ResponseEntity<>(response, HttpStatus.OK);
   }
 
