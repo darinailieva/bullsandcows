@@ -1,6 +1,8 @@
 package com.brainstars.bullsandcows.models;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -21,6 +23,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
@@ -29,7 +32,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Game {
+@ToString
+public class Game implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "game_id")
@@ -57,8 +61,8 @@ public class Game {
 
   @OneToMany(mappedBy = "game",
     cascade = CascadeType.ALL,
-    orphanRemoval = true)
-  private List<Attempt> attempts;
+    orphanRemoval = true) @ToString.Exclude
+  private List<Attempt> attempts = new ArrayList<>();
 
   public void addAttempt(Attempt attempt) {
     attempts.add(attempt);
