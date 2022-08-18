@@ -1,0 +1,54 @@
+version: '3.0'
+services:
+  bulls-and-cows:
+    container_name: bulls_and_cows
+    build:
+      context: .
+    ports:
+      - 8080:8080
+    environment:
+      - SERVER_PORT=8080
+      - MYSQL_URL=jdbc:postgresql://localhost:5432/postgres
+    volumes:
+      - ./:/app
+    command: ./mvnw spring-boot:run -Dspring-boot.run.profiles=mysql -Dspring-boot.run.jvmArguments="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:8000"
+    networks:
+      - network
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=darina
+    logging:
+      options:
+        max-size: 10m
+        max-file: "3"
+    ports:
+      - 5432:5432
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+    networks:
+          - network
+  liquibase:
+    image: liquibase/liquibase:latest
+    container_name: liquibase
+    depends_on:
+      - postgres
+    volumes:
+#      - ./database/sql/liquibase/changeLog/:/liquibase/changelog/
+       - ./db/changeLog/:/liquibase/changelog/
+    command: --defaults-file=/liquibase/changelog/liquibase.properties update
+    networks:
+      - network
+  redis-server:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - 6379:6379
+  command: [ "redis-server", "--appendonly", "yes" ]
+    networks:
+      - network
+networks:
+  network:
