@@ -1,5 +1,7 @@
 package com.brainstars.bullsandcows.models;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,11 +13,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.cache.annotation.Cacheable;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "attempts")
@@ -23,7 +27,10 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Attempt {
+@Cacheable
+@ToString
+
+public class Attempt implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "attempt_id")
@@ -40,6 +47,6 @@ public class Attempt {
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "game_id")
-  @JsonIgnore
+  @JsonIgnore @ToString.Exclude
   private Game game;
 }

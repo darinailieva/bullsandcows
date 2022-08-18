@@ -2,6 +2,7 @@ package com.brainstars.bullsandcows.services;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 import com.brainstars.bullsandcows.exceptions.DuplicateDigitException;
@@ -15,23 +16,28 @@ import com.brainstars.bullsandcows.models.dtos.UsersResponse;
 import com.brainstars.bullsandcows.repositories.AttemptRepository;
 import com.brainstars.bullsandcows.repositories.GameRepository;
 
+import org.redisson.api.RBucket;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class GameServiceImpl implements GameService {
-  public static final int MAX_DIGITS = 4;
-  public static final int MAX_BOUND = 10;
-  public static final int ZERO_INDEX = 0;
-  public static final int ARRAY_LENGTH = 2;
-  public static final int FIRST_INDEX = 1;
+  private static final int MAX_DIGITS = 4;
+  private static final int MAX_BOUND = 10;
+  private static final int ZERO_INDEX = 0;
   private final GameRepository gameRepository;
   private final AttemptRepository attemptRepository;
+  private final RBucket<Game> rBucket;
 
   @Autowired
-  public GameServiceImpl(GameRepository gameRepository, AttemptRepository attemptRepository) {
+  public GameServiceImpl(GameRepository gameRepository, AttemptRepository attemptRepository,
+    RBucket<Game> rBucket) {
     this.gameRepository = gameRepository;
     this.attemptRepository = attemptRepository;
+    this.rBucket = rBucket;
   }
 
   @Override
@@ -64,9 +70,10 @@ public class GameServiceImpl implements GameService {
 
     attempt.setBulls(bulls);
     attempt.setCows(cows);
-    attemptRepository.save(attempt);
     game.addAttempt(attempt);
+    attemptRepository.save(attempt);
     game.setTimesPlayed(game.getAttempts().size());
+    rBucket.set(game);
     gameRepository.save(game);
   }
 
@@ -77,9 +84,22 @@ public class GameServiceImpl implements GameService {
 
   @Override
   public Game getById(Integer gameId) {
-    return gameRepository.findById(gameId)
+
+    if (rBucket.isExists() && Objects.equals(rBucket.get().getGameId(), gameId)) {
+      log.info("From bucket cache: " + rBucket.get().toString());
+      return rBucket.get();
+    }
+
+    Game game = gameRepository.findById(gameId)
       .orElseThrow(() ->
         new EntityNotFoundException("Game", "id", String.valueOf(gameId)));
+    if (game != null) {
+      game.getAttempts().size();
+    }
+    log.info("From repo: " + game.toString());
+    rBucket.set(game);
+
+    return game;
   }
 
   @Override
