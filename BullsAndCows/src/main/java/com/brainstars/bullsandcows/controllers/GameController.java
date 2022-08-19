@@ -63,9 +63,9 @@ public class GameController {
   @PutMapping("/game/{gameId}")
   public ResponseEntity<GameResponse> guessNumber(@PathVariable Integer gameId,
     @RequestBody AttemptRequest request) {
-    Game game = gameService.getById(gameId);
     Attempt attempt = convertToAttempt(request);
     gameService.guessNumber(gameId, attempt);
+    Game game = gameService.getById(gameId);
     GameResponse response = convertToGameResponse(game);
     return new ResponseEntity<>(response, HttpStatus.OK);
   }
