@@ -9,14 +9,13 @@ import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.redis.connection.RedisConnectionFactory;
 
 @Configuration
 @EnableConfigurationProperties(RedisProperties.class)
 public class RedisConfiguration {
 
   @Bean
-  public RBucket<Game> rBucket(RedisConnectionFactory connectionFactory) {
+  public RBucket<Game> rBucket() {
     RedissonClient client = Redisson.create();
     return client.getBucket("game");
   }

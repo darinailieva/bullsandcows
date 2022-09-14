@@ -23,7 +23,7 @@ public class GameMapper {
   public static List<UserGameResponse> convertToGameResponses(List<Game> userGames) {
     List<UserGameResponse> gamesResponses = new ArrayList<>();
     for (Game game : userGames) {
-      var userGamesResponse = new UserGameResponse();
+      UserGameResponse userGamesResponse = new UserGameResponse();
       userGamesResponse.setGameId(game.getGameId());
       userGamesResponse.setTimesPlayed(game.getTimesPlayed());
       userGamesResponse.setCreatedDate(game.getCreatedDate());

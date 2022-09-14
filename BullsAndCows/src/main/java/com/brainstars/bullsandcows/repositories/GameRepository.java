@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 public interface GameRepository extends JpaRepository<Game, Integer> {
-  @Query("FROM Game g  where g.username =:username")
+  @Query("FROM Game g where g.username = ?1")
   List<Game> getAllUserGames(String username);
 
   @Query(value = "select g.username as username, "
